@@ -1,41 +1,113 @@
-import React from 'react'
 import Link from 'next/link'
 import Head from '../components/head'
 import Nav from '../components/nav'
-import { Button } from 'antd'
+import Hero from '../components/hero'
+import {
+  Button,
+  Card,
+  Row,
+  Col,
+  Icon,
+} from 'antd'
 
 const Home = () => (
   <div>
-    <Button
-      type="primary"
-    >
-      Hello World
-    </Button>
     <Head title="Home" />
-    <div className="hero">
-      <h1 className="title">Welcome to Next!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+    <Nav />
+    <Hero />
+    <div className="container">
+      <Row>
+        <Col xs={22}>
+          <Card bordered className="mt-one">
+            <div>
+              <h2>Senior Solidity Engineer</h2>
+              <h3>The Arcadia Group</h3>
+              <div className="basic-details">
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="calendar"
+                  />
+                  <span className="mr-one">August 25th 2019</span>
+                </div>
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="clock-circle"
+                  />
+                  <span className="mr-one">Full Time</span>
+                </div>
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="global"
+                  />
+                  <span>Remote</span>
+                </div>
+              </div>
+              <p className="mt-one mb-one">
+                Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
+              </p>
 
-      <div className="row">
-        <Link href="/about">
-          <a title="About Page">About Page</a>
-        </Link>
-      </div>
+              <Button type="primary">
+                Read More
+              </Button>
+            </div>
+          </Card>
+          <Card bordered className="mt-one">
+            <div>
+              <h2>Senior Solidity Engineer</h2>
+              <h3>The Arcadia Group</h3>
+              <div className="basic-details">
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="calendar"
+                  />
+                  <span className="mr-one">August 25th 2019</span>
+                </div>
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="clock-circle"
+                  />
+                  <span className="mr-one">Full Time</span>
+                </div>
+                <div>
+                  <Icon
+                    className="mr-quarter"
+                    type="global"
+                  />
+                  <span>Remote</span>
+                </div>
+              </div>
+              <p className="mt-one mb-one">
+                Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
+              </p>
+
+              <Button type="primary">
+                Read More
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          Hello
+        </Col>
+      </Row>
     </div>
 
     <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
+      .basic-details {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
       }
       .title {
         margin: 0;
         width: 100%;
         padding-top: 80px;
         line-height: 1.15;
-        font-size: 48px;
       }
       .title,
       .description {
