@@ -23,11 +23,9 @@ class Home extends React.Component {
 
   componentDidMount = async () => {
     const { userSession } = getConfig();
-    const result = await User.findOne({ _id: 'kkomaz.id'})
-    console.log(result)
 
     if (userSession.isUserSignedIn()) {
-      return null;
+      return this.setState({ loggedIn: true })
     }
 
     if (userSession.isSignInPending()) {
@@ -37,7 +35,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.state.loggedIn)
     return (
       <div>
         <Head title="Home" />

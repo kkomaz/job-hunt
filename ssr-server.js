@@ -10,18 +10,17 @@ const handle = app.getRequestHandler()
 const { setup } = require('radiks-server');
 
 app.prepare()
-  .then(() => {
+  .then(async () => {
     const server = express()
     server.use(secure);
     server.use(bodyParser.json());
 
     expressWS(server);
 
-    setup({
-      mongoDBUrl: 'mongodb://job-hunt-dev:jobhunting1@ds359077.mlab.com:59077/job-hunt-dev'
-    }).then((RadiksController) => {
-      server.use('/radiks', RadiksController)
-    })
+    const RadiksController = await setup({
+      mongoDBUrl: 'mongodb://job-hunt-dev:jobhunting1@ds359077.mlab.com:59077/job-hunt-dev',
+    });
+    server.use('/radiks', RadiksController);
 
     // server.get('/about', (req, res) => {
     //   console.log('hitting here')
