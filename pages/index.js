@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import Head from '../components/head'
-import Nav from '../components/nav'
-import Hero from '../components/hero'
 import {
   Button,
   Card,
@@ -62,26 +60,10 @@ class Home extends React.Component {
     }
   }
 
-  handleSignIn = (e) => {
-    const { userSession } = this.state
-
-    e.preventDefault()
-    userSession.redirectToSignIn()
-  }
-
-  handleSignOut = () => {
-    const { userSession } = this.state
-
-    userSession.signUserOut()
-    window.location = '/' // eslint-disable-line no-undef
-  }
-
   render() {
     return (
       <div>
         <Head title="Home" />
-        <Nav />
-        <Hero />
         <div className="container">
           <Row>
             <Col xs={22}>

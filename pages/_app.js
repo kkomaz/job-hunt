@@ -1,6 +1,8 @@
 import React from 'react'
 import App from 'next/app'
 import { UserSession, AppConfig } from 'blockstack';
+import Nav from '../components/nav'
+import Hero from '../components/hero'
 import { configure } from 'radiks';
 
 class MyApp extends App {
@@ -27,7 +29,14 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props
-    return <Component {...pageProps} />
+
+    return (
+      <div>
+        <Nav />
+        <Hero />
+        <Component {...pageProps} />
+      </div>
+    )
   }
 }
 
