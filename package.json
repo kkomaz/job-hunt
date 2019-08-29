@@ -1,10 +1,9 @@
 {
   "name": "create-next-example-app",
   "scripts": {
-    "dev": "next",
+    "dev": "node ssr-server.js",
     "build": "next build",
-    "start": "next start",
-    "dev:start": "node server.js"
+    "start": "next start"
   },
   "dependencies": {
     "antd": "^3.22.2",
