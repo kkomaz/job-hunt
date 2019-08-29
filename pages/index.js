@@ -49,9 +49,14 @@ const Home = () => (
                 Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
               </p>
 
-              <Button type="primary">
-                Read More
-              </Button>
+              <div className="card-buttons">
+                <Button className="mr-half" type="primary">
+                  Read More
+                </Button>
+                <Button type="link">
+                  Direct Job Link
+                </Button>
+              </div>
             </div>
           </Card>
           <Card bordered className="mt-one">
@@ -85,9 +90,14 @@ const Home = () => (
                 Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
               </p>
 
-              <Button type="primary">
-                Read More
-              </Button>
+              <div className="card-buttons">
+                <Button className="mr-half" type="primary">
+                  Read More
+                </Button>
+                <Button type="link">
+                  Direct Job Link
+                </Button>
+              </div>
             </div>
           </Card>
         </Col>
@@ -103,6 +113,11 @@ const Home = () => (
         align-items: center;
         justify-content: flex-start;
       }
+
+      .card-buttons {
+        display: flex;
+      }
+
       .title {
         margin: 0;
         width: 100%;
