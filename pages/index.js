@@ -8,26 +8,21 @@ import {
   Icon,
 } from 'antd'
 import { UserSession } from 'blockstack'
-import { User } from 'radiks'
+import { User, getConfig } from 'radiks'
 import { AppConfig } from 'blockstack'
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
 
-    const appConfig = new AppConfig(['store_write', 'publish_data'])
-
-    const userSession = new UserSession({ appConfig })
-
     this.state = {
-      userSession,
       loggedIn: false,
       loggingIn: false,
     }
   }
 
   componentDidMount = async () => {
-    const { userSession } = this.state
+    const { userSession } = getConfig();
 
     // If already signed in
     if (userSession.isUserSignedIn()) {

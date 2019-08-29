@@ -1,32 +1,21 @@
 import React from 'react'
 import Link from 'next/link'
 import { AppConfig, UserSession } from 'blockstack'
+import { getConfig, User } from 'radiks';
 import {
   Button,
 } from 'antd'
 
 class Nav extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const appConfig = new AppConfig(['store_write', 'publish_data'])
-
-    const userSession = new UserSession({ appConfig })
-
-    this.state = {
-      userSession,
-    }
-  }
-
   handleSignIn = (e) => {
-    const { userSession } = this.state
+    const { userSession } = getConfig();
 
     e.preventDefault()
     userSession.redirectToSignIn()
   }
 
   handleSignOut = () => {
-    const { userSession } = this.state
+    const { userSession } = getConfig();
 
     userSession.signUserOut()
     window.location = '/' // eslint-disable-line no-undef
