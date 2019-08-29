@@ -35,7 +35,7 @@ class MyApp extends App {
     return { ...appProps }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const userSession = makeUserSession();
 
     configure({
@@ -50,11 +50,6 @@ class MyApp extends App {
   
   render() {
     const { Component, pageProps } = this.props
-    const { userSession } = this.state
-
-    if (!userSession) {
-      return <div>Loading...</div>
-    }
 
     return (
       <div>

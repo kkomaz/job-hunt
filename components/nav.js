@@ -7,9 +7,18 @@ import {
 } from 'antd'
 
 class Nav extends React.Component {
-  handleSignIn = (e) => {
+  constructor(props) {
+    super(props)
+
     const { userSession } = getConfig();
 
+    this.state = {
+      isSignedIn: userSession.isUserSignedIn()
+    }
+  }
+
+  handleSignIn = (e) => {
+    const { userSession } = getConfig();
     e.preventDefault()
     userSession.redirectToSignIn()
   }
@@ -18,10 +27,11 @@ class Nav extends React.Component {
     const { userSession } = getConfig();
 
     userSession.signUserOut()
-    window.location = '/' // eslint-disable-line no-undef
+    window.location = '/'
   }
 
   render() {
+    const { isSignedIn } = this.state
 
     return (
       <nav>
@@ -33,9 +43,15 @@ class Nav extends React.Component {
           </li>
           <ul>
             <li>
-              <Button onClick={this.handleSignIn}>
-                Sign In
-              </Button>
+              {
+                isSignedIn ?
+                <Button onClick={this.handleSignOut}>
+                  Sign Out
+                </Button> :
+                <Button onClick={this.handleSignIn}>
+                  Sign In
+                </Button>
+              }
             </li>
           </ul>
         </ul>
