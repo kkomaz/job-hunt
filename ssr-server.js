@@ -1,13 +1,27 @@
 const express = require('express')
+const expressWS = require('express-ws');
 const next = require('next')
 const path = require('path');
+const bodyParser = require('body-parser');
+const secure = require('express-force-https');
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const { setup } = require('radiks-server');
 
 app.prepare()
   .then(() => {
     const server = express()
+    server.use(secure);
+    server.use(bodyParser.json());
+
+    expressWS(server);
+
+    setup({
+      mongoDBUrl: 'mongodb://job-hunt-dev:jobhunting1@ds359077.mlab.com:59077/job-hunt-dev'
+    }).then((RadiksController) => {
+      server.use('/radiks', RadiksController)
+    })
 
     // server.get('/about', (req, res) => {
     //   console.log('hitting here')

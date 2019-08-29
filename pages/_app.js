@@ -7,7 +7,7 @@ import { configure } from 'radiks';
 import user from 'radiks/lib/models/user';
 
 const makeUserSession = () => {
-  const appConfig = new AppConfig(['store_write', 'publish_data'], 'http://localhost:5000');
+  const appConfig = new AppConfig(['store_write', 'publish_data'], 'http://localhost:3000');
   return new UserSession({ appConfig });
 };
 
@@ -28,7 +28,7 @@ class MyApp extends App {
     const userSession = makeUserSession();
 
     configure({
-      apiServer: 'http://localhost:5000',
+      apiServer: 'http://localhost:3000',
       userSession
     });
   
@@ -39,7 +39,7 @@ class MyApp extends App {
     const userSession = makeUserSession();
 
     configure({
-      apiServer: 'http://localhost:5000',
+      apiServer: 'http://localhost:3000',
       userSession
     });
 

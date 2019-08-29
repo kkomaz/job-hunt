@@ -23,35 +23,16 @@ class Home extends React.Component {
 
   componentDidMount = async () => {
     const { userSession } = getConfig();
+    const result = await User.findOne({ _id: 'kkomaz.id'})
+    console.log(result)
 
-    // If already signed in
     if (userSession.isUserSignedIn()) {
-      const userData = userSession.loadUserData();
-
-      if (userData.username) {
-        this.setState({ loggedIn: true }, async () => {
-          await User.createWithCurrentUser()
-        })
-      } else {
-        return this.setState({ loggedIn: true })
-      }
+      return null;
     }
 
-    // If pending sign-in
-    if (!userSession.isUserSignedIn() && userSession.isSignInPending()) {
-      const userData = await userSession.handlePendingSignIn()
-      this.setState({ loggingIn: true })
-
-      if (!userData.username) {
-        return this.setState({
-          loggedIn: true
-        })
-      }
-
-      return this.setState({
-        loggedIn: true,
-        loggingIn: false
-      })
+    if (userSession.isSignInPending()) {
+      await userSession.handlePendingSignIn();
+      await User.createWithCurrentUser();
     }
   }
 
