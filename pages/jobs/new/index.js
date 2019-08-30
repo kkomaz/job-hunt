@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Head from '../../../components/head'
 import JobForm from '../../../components/jobForm'
+import JobCard from '../../../components/jobCard'
 import {
   Card,
   Checkbox,
@@ -13,11 +14,14 @@ import {
 } from 'antd'
 
 export default function JobsNew() {
-  const [preview, setPreview] = useState(false)
+  const [preview, setPreview] = useState(true)
+  const [jobParams, setJobParams] = useState({})
 
   const showPreview = () => {
     setPreview(true)
   }
+
+  console.log(jobParams)
 
   return (
     <div className="container mt-one">
@@ -26,6 +30,7 @@ export default function JobsNew() {
         <Col xs={12} offset={preview ? 0 : 7}>
           <Card>
             <JobForm
+              setJobParams={setJobParams}
               showPreview={showPreview}
             />
           </Card>
@@ -33,10 +38,23 @@ export default function JobsNew() {
         {
           preview &&
           <Col xs={12}>
-            Showing Preview
+            <div className="confirm-container mb-one">
+              <Button type="primary">
+                Confirm & Submit Job Post
+              </Button>
+            </div>
+            <JobCard params={jobParams} />
           </Col>
         }
       </Row>
+      <style jsx>{`
+        .confirm-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      `}
+      </style>
     </div>
   )
 }

@@ -6,7 +6,7 @@ function Hero() {
     <section className="hero main is-info">
       <div className="hero-body">
         <h1 className="title white self-centered">
-          One stop shop for Blockchain Jobs
+          One Stop Shop for Blockchain Jobs
         </h1>
         <div className="post-job-container">
           <Link href="/jobs/new">

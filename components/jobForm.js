@@ -26,6 +26,7 @@ function JobForm(props) {
 
     validateFields((err, values) => {
       if (!err && preview) {
+        props.setJobParams(values)
         props.showPreview()
       }
 
@@ -45,39 +46,52 @@ function JobForm(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Item label="Company Name" style={{ marginBottom: '10px' }}>
             {
-              getFieldDecorator('company_name', {
+              getFieldDecorator('company', {
                 rules: [
                   { required: true, message: 'Required' }
                 ]
               })(
                 <Input
-                  name="company_name"
+                  name="company"
                 />
               )
             }
           </Form.Item>
           <Form.Item label="Company location" style={{ marginBottom: '10px' }}>
             {
-              getFieldDecorator('company_location', {
+              getFieldDecorator('location', {
                 rules: [
                   { required: true, message: 'Required' }
                 ]
               })(
                 <Input
-                  name="company_location"
+                  name="location"
+                />
+              )
+            }
+          </Form.Item>
+          <Form.Item label="Job Title" style={{ marginBottom: '10px' }}>
+            {
+              getFieldDecorator('title', {
+                rules: [
+                  { required: true, message: 'Required' }
+                ]
+              })(
+                <Input
+                  name="title"
                 />
               )
             }
           </Form.Item>
           <Form.Item label="URL of the offer" style={{ marginBottom: '10px' }}>
             {
-              getFieldDecorator('company_offer', {
+              getFieldDecorator('offer', {
                 rules: [
                   { required: true, message: 'Required' }
                 ]
               })(
                 <Input
-                  name="company_offer"
+                  name="offer"
                   placeholder="External URL of the job offer"
                 />
               )
@@ -91,11 +105,11 @@ function JobForm(props) {
                 ]
               })(
                 <Select style={{ width: '100%' }}>
-                  <Option value="1">Full Time</Option>
-                  <Option value="2">Part Time</Option>
-                  <Option value="3">Internship</Option>
-                  <Option value="4">Contract</Option>
-                  <Option value="5">Other</Option>
+                  <Option value="full_time">Full Time</Option>
+                  <Option value="part_time">Part Time</Option>
+                  <Option value="internship">Internship</Option>
+                  <Option value="contract">Contract</Option>
+                  <Option value="other">Other</Option>
                 </Select>
               )
             }
@@ -108,9 +122,9 @@ function JobForm(props) {
                 ]
               })(
                 <Select style={{ width: '100%' }}>
-                  <Option value="1">On site</Option>
-                  <Option value="2">Remote</Option>
-                  <Option value="3">Onsite/Remote</Option>
+                  <Option value="onsite">On site</Option>
+                  <Option value="remote">Remote</Option>
+                  <Option value="onsite_remote">Onsite/Remote</Option>
                 </Select>
               )
             }
@@ -123,15 +137,15 @@ function JobForm(props) {
                 ]
               })(
                 <Select>
-                  <Option value="1">Tech</Option>
-                  <Option value="2">Design</Option>
-                  <Option value="3">Business Development</Option>
-                  <Option value="4">Sales</Option>
-                  <Option value="5">Marketing</Option>
-                  <Option value="6">Operations</Option>
-                  <Option value="7">Customer Support</Option>
-                  <Option value="8">Analyst</Option>
-                  <Option value="9">Other</Option>
+                  <Option value="tech">Tech</Option>
+                  <Option value="design">Design</Option>
+                  <Option value="business_dev">Business Development</Option>
+                  <Option value="sales">Sales</Option>
+                  <Option value="marketing">Marketing</Option>
+                  <Option value="operations">Operations</Option>
+                  <Option value="customer_support">Customer Support</Option>
+                  <Option value="analyst">Analyst</Option>
+                  <Option value="other">Other</Option>
                 </Select>
               )
             }
@@ -139,13 +153,13 @@ function JobForm(props) {
 
           <Form.Item label="Description" style={{ marginBottom: '10px' }}>
             {
-              getFieldDecorator('company_description', {
+              getFieldDecorator('description', {
                 rules: [
                   { required: true, message: 'Required' }
                 ]
               })(
                 <TextArea
-                  name="company_description"
+                  name="description"
                   rows={7}
                 />
               )

@@ -7,8 +7,6 @@ import {
   Col,
   Icon,
 } from 'antd'
-import { UserSession, AppConfig } from 'blockstack'
-import { User, getConfig } from 'radiks'
 
 class Home extends React.Component {
   render() {
