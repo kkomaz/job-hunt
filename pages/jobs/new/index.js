@@ -14,7 +14,7 @@ import {
 } from 'antd'
 
 export default function JobsNew() {
-  const [preview, setPreview] = useState(true)
+  const [preview, setPreview] = useState(false)
   const [jobParams, setJobParams] = useState({})
 
   const showPreview = () => {
@@ -26,31 +26,38 @@ export default function JobsNew() {
   return (
     <div className="container mt-one">
       <Head title="Home" />
-      <Row>
-        <Col xs={12} offset={preview ? 0 : 7}>
-          <Card>
-            <JobForm
-              setJobParams={setJobParams}
-              showPreview={showPreview}
-            />
-          </Card>
-        </Col>
-        {
-          preview &&
-          <Col xs={12}>
-            <div className="confirm-container mb-one">
-              <Button type="primary">
-                Confirm & Submit Job Post
-              </Button>
-            </div>
-            <JobCard params={jobParams} />
+      <Row gutter={16}>
+        <div className="job-container">
+          <Col xs={24} md={12}>
+            <Card>
+              <JobForm
+                setJobParams={setJobParams}
+                showPreview={showPreview}
+              />
+            </Card>
           </Col>
-        }
+          {
+            preview &&
+            <Col xs={24} md={12}>
+              <div className="confirm-container mb-one">
+                <Button type="primary">
+                  Confirm & Submit Job Post
+                </Button>
+              </div>
+              <JobCard params={jobParams} />
+            </Col>
+          }
+        </div>
       </Row>
       <style jsx>{`
         .confirm-container {
           display: flex;
           align-items: center;
+          justify-content: center;
+        }
+
+        .job-container {
+          display: flex;
           justify-content: center;
         }
       `}
