@@ -19,9 +19,10 @@ class Nav extends React.Component {
 
   componentDidMount = async () => {
     const { userSession } = getConfig();
-    console.log(userSession.isSignInPending(), 'nav!!');
     
     if (userSession.isUserSignedIn()) {
+      const result = userSession.loadUserData()
+      console.log(result)
       return this.setState({ isSignedIn: true })
     }
 
@@ -47,6 +48,24 @@ class Nav extends React.Component {
     window.location = '/'
   }
 
+  testIt = async () => {
+    const { userSession } = getConfig();
+
+    const options = { encrypt: false }
+
+    const params = JSON.stringify({ done: true })
+
+    await userSession.putFile('test.json', params, options)
+  }
+
+  getIt = async () => {
+    const { userSession } = getConfig();
+
+    const options = { decrypt: false }
+
+    await userSession.getFile('test.json', options)
+  }
+
   render() {
     const { isSignedIn } = this.state
 
@@ -70,8 +89,32 @@ class Nav extends React.Component {
                 </Button>
               }
             </li>
+            <li>
+              <Button onClick={this.testIt}>
+                Test Button
+              </Button>
+              <Button onClick={this.getIt}>
+                Get Button
+              </Button>
+            </li>
           </ul>
         </ul>
+
+        <style jsx>{`
+          ul {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          nav > ul {
+            padding: 4px 16px;
+          }
+
+          li {
+            display: flex;
+            padding: 6px 8px;
+          }
+        `}</style>
 
         <style jsx global>{`
           :global(body) {
@@ -127,12 +170,25 @@ class Nav extends React.Component {
               max-width: 1140px;
             }
           }
+          
           nav {
             background: transparent;
             text-align: center;
             position: fixed;
             left: 0;
             right: 0;
+          }
+
+          .large {
+            font-size: 16px;
+          }
+
+          .green {
+            color: #5CAB7D;
+          }
+
+          .bold {
+            font-weight: 800;
           }
 
           h1 {
@@ -155,21 +211,7 @@ class Nav extends React.Component {
           p {
             margin-bottom: 0;
           }
-
-          ul {
-            display: flex;
-            justify-content: space-between;
-          }
-
-          nav > ul {
-            padding: 4px 16px;
-          }
-
-          li {
-            display: flex;
-            padding: 6px 8px;
-          }
-          
+         
           a {
             color: #067df7;
             text-decoration: none;

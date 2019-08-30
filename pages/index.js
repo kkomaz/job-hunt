@@ -17,7 +17,7 @@ class Home extends React.Component {
         <Head title="Home" />
         <div className="container">
           <Row>
-            <Col xs={22}>
+            <Col xs={18}>
               <Card bordered className="mt-one">
                 <div>
                   <h2>Senior Solidity Engineer</h2>
@@ -101,8 +101,24 @@ class Home extends React.Component {
                 </div>
               </Card>
             </Col>
-            <Col xs={2}>
-              Hello
+            <Col xs={6}>
+              <div className="mt-one" style={{ padding: '0 20px' }}>
+                <h3>Who are we?</h3>
+                <p className="mb-one large">
+                  JobStack is a open source platform to help developers find job in the crypto & blockchain space.
+                </p>
+                <p className="mb-one large">
+                  Posting a job is completely <span className="green bold">FREE</span>.  All it requires is for you to sign up and create a Blockstack ID
+                </p>
+                <p className="mb-one large">
+                  With the emergence of blockchain technology and decentralized applications, finding talented individuals to solve these problems will play a vital role to mass adoption.
+                </p>
+
+                <h3>Sponsors</h3>
+                <p className="mb-one large">
+                  Currently accepting sponsors to help promote blockchain jobs
+                </p>
+              </div>
             </Col>
           </Row>
         </div>
@@ -112,6 +128,13 @@ class Home extends React.Component {
             display: flex;
             align-items: center;
             justify-content: flex-start;
+          }
+
+          p {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
           }
 
           .card-buttons {
