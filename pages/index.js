@@ -7,33 +7,10 @@ import {
   Col,
   Icon,
 } from 'antd'
-import { UserSession } from 'blockstack'
+import { UserSession, AppConfig } from 'blockstack'
 import { User, getConfig } from 'radiks'
-import { AppConfig } from 'blockstack'
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      loggedIn: false,
-      loggingIn: false,
-    }
-  }
-
-  componentDidMount = async () => {
-    const { userSession } = getConfig();
-
-    if (userSession.isUserSignedIn()) {
-      return this.setState({ loggedIn: true })
-    }
-
-    if (userSession.isSignInPending()) {
-      await userSession.handlePendingSignIn();
-      await User.createWithCurrentUser();
-    }
-  }
-
   render() {
     return (
       <div>

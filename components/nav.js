@@ -17,6 +17,23 @@ class Nav extends React.Component {
     }
   }
 
+  componentDidMount = async () => {
+    const { userSession } = getConfig();
+    console.log(userSession.isSignInPending(), 'nav!!');
+    
+    if (userSession.isUserSignedIn()) {
+      return this.setState({ isSignedIn: true })
+    }
+
+    if (userSession.isSignInPending()) {
+      await userSession.handlePendingSignIn();
+      await User.createWithCurrentUser();
+      console.log('hitting here!')
+      this.setState({ isSignedIn: true })
+    }
+  }
+  
+
   handleSignIn = (e) => {
     const { userSession } = getConfig();
     e.preventDefault()
