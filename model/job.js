@@ -3,7 +3,7 @@ import { Model } from 'radiks'
 export default class Job extends Model {
   static className = 'Job'
 
-  static schemea = {
+  static schema = {
     company: {
       type: String,
       encrypt: false,

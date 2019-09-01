@@ -1,7 +1,4 @@
 import {
-  Card,
-  Checkbox,
-  Icon,
   Input,
   Form,
   Button,
@@ -9,16 +6,25 @@ import {
   Col,
   Select,
 } from 'antd'
-
+import Job from '../model/job'
 const { Option } = Select;
 
 const { TextArea } = Input;
-
 
 function JobForm(props) {
   const {
     form: { getFieldDecorator, validateFields }
   } = props
+
+  const createJob = async (params) => {
+    const job = new Job(params)
+    console.log(job)
+    try {
+      await job.save()
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const handleSubmit = (e, preview) => {
     console.log(preview, 'preview')
@@ -31,7 +37,7 @@ function JobForm(props) {
       }
 
       if (!err) {
-        console.log(values);
+        createJob(values)
       }
     })
   }

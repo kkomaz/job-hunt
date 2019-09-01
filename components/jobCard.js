@@ -38,6 +38,10 @@ export default function JobCard(props) {
     disableButtons,
   } = props.params
 
+  const goToDirect = () => {
+     window.open(offer);
+  }
+
   return (
     <Card bordered>
       <div>
@@ -78,10 +82,12 @@ export default function JobCard(props) {
         </p>
 
         <div className="card-buttons">
-          <Button className="mr-half" type="primary" disabled={disableButtons}>
-            Read More
-          </Button>
-          <Button type="link" disabled={disableButtons}>
+          <Link href="">
+            <Button className="mr-half" type="primary" disabled={disableButtons}>
+              Read More
+            </Button>
+          </Link>
+          <Button type="link" disabled={disableButtons} onClick={goToDirect}>
             Direct Job Link
           </Button>
         </div>

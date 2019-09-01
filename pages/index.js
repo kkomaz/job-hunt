@@ -8,6 +8,7 @@ import {
   Icon,
 } from 'antd'
 import JobContainer from '../unstated/JobContainer'
+import JobCard from '../components/jobCard'
 import Job from '../model/job'
 
 function Home(props) {
@@ -33,94 +34,28 @@ function Home(props) {
     }
   }, [])
 
+  if (!jobContainer.jobs[query.page || 0]) {
+    return <div>Loading...</div>
+  }
+
+  console.log(jobContainer.jobs)
+
   return (
     <div>
       <Head title="Home" />
       <div className="container">
         <Row>
           <Col xs={18}>
-            <Card bordered className="mt-one">
-              <div>
-                <h2>Senior Solidity Engineer</h2>
-                <h3>The Arcadia Group</h3>
-                <div className="basic-details">
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="calendar"
-                    />
-                    <span className="mr-one">August 25th 2019</span>
-                  </div>
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="clock-circle"
-                    />
-                    <span className="mr-one">Full Time</span>
-                  </div>
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="global"
-                    />
-                    <span>Remote</span>
-                  </div>
-                </div>
-                <p className="mt-one mb-one">
-                  Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
-                </p>
-
-                <div className="card-buttons">
-                  <Button className="mr-half" type="primary">
-                    Read More
-                  </Button>
-                  <Button type="link">
-                    Direct Job Link
-                  </Button>
-                </div>
-              </div>
-            </Card>
-            <Card bordered className="mt-one">
-              <div>
-                <h2>Senior Solidity Engineer</h2>
-                <h3>The Arcadia Group</h3>
-                <div className="basic-details">
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="calendar"
-                    />
-                    <span className="mr-one">August 25th 2019</span>
-                  </div>
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="clock-circle"
-                    />
-                    <span className="mr-one">Full Time</span>
-                  </div>
-                  <div>
-                    <Icon
-                      className="mr-quarter"
-                      type="global"
-                    />
-                    <span>Remote</span>
-                  </div>
-                </div>
-                <p className="mt-one mb-one">
-                  Lorem ipsum dolor amet tattooed try-hard bespoke, keytar la croix keffiyeh craft beer live-edge humblebrag pitchfork four loko vaporware hella retro direct trade. Shabby chic echo park gochujang cardigan palo santo vaporware. Hoodie crucifix heirloom meggings poutine kogi. Palo santo jean shorts banjo tilde, subway tile cold-pressed messenger bag blog authentic irony direct trade. Readymade knausgaard microdosing lo-fi PBR&B, small batch sriracha truffaut hoodie umami af. Austin chartreuse artisan cold-pressed, post-ironic viral meditation live-edge selfies actually. Farm-to-table photo booth skateboard, hoodie humblebrag mumblecore shaman venmo palo santo.
-                </p>
-
-                <div className="card-buttons">
-                  <Button className="mr-half" type="primary">
-                    Read More
-                  </Button>
-                  <Button type="link">
-                    Direct Job Link
-                  </Button>
-                </div>
-              </div>
-            </Card>
+            {
+              jobContainer.jobs[query.page || 0].map((job) => {
+                const params = job.attrs
+                return (
+                  <JobCard
+                    params={{...params, date: job.attrs.createdAt}}
+                  />
+                )
+              })
+            }
           </Col>
           <Col xs={6}>
             <div className="mt-one" style={{ padding: '0 20px' }}>
