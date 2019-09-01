@@ -4,11 +4,31 @@ export default class Job extends Model {
   static className = 'Job'
 
   static schemea = {
-    address: {
+    company: {
       type: String,
       encrypt: false,
     },
-    job_uuid: {
+    location: {
+      type: String,
+      encrypt: false,
+    },
+    title: {
+      type: String,
+      encrypt: false,
+    },
+    type: {
+      type: String,
+      encrypt: false,
+    },
+    job_place: {
+      type: String,
+      encrypt: false,
+    },
+    category: {
+      type: String,
+      encrypt: false,
+    },
+    description: {
       type: String,
       encrypt: false,
     }

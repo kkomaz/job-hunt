@@ -4,7 +4,7 @@ import { UserSession, AppConfig } from 'blockstack';
 import Nav from '../components/nav'
 import Hero from '../components/hero'
 import { configure } from 'radiks';
-import user from 'radiks/lib/models/user';
+import MainContainer from '../unstated/MainContainer'
 
 const makeUserSession = () => {
   const appConfig = new AppConfig(['store_write', 'publish_data'], 'http://localhost:3000');
@@ -52,11 +52,11 @@ class MyApp extends App {
     const { Component, pageProps } = this.props
 
     return (
-      <div>
+      <MainContainer>
         <Nav />
         <Hero />
         <Component {...pageProps} />
-      </div>
+      </MainContainer>
     )
   }
 }
