@@ -20,13 +20,14 @@ app.prepare()
     const RadiksController = await setup({
       mongoDBUrl: 'mongodb://job-hunt-dev:jobhunting1@ds359077.mlab.com:59077/job-hunt-dev',
     });
+    
     server.use('/radiks', RadiksController);
 
-    // server.get('/about', (req, res) => {
-    //   console.log('hitting here')
-    //   const actualPage = '/help'
-    //   app.render(req, res, actualPage)
-    // })
+    server.get('/jobs/:_id', (req, res) => {
+      console.log(req.params)
+      const actualPage = '/jobs/_id'
+      app.render(req, res, actualPage)
+    })
 
     server.get('/manifest.json', (req, res) => {
       res.header('Access-Control-Allow-Origin', '*');

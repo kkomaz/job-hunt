@@ -1,7 +1,7 @@
-function JobDetail() {
+export default function About() {
   return (
     <div>
-      Hello Detail
+      <p>This is the don don page page</p>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import {
   Card,
   Icon,
 } from 'antd'
+import Link from 'next/link'
 
 const key = {
   full_time: 'Full Time',
@@ -26,6 +27,7 @@ const key = {
 
 export default function JobCard(props) {
   const {
+    _id,
     company,
     location,
     title,
@@ -41,6 +43,8 @@ export default function JobCard(props) {
   const goToDirect = () => {
      window.open(offer);
   }
+
+  console.log(_id)
 
   return (
     <Card bordered>
@@ -82,7 +86,7 @@ export default function JobCard(props) {
         </p>
 
         <div className="card-buttons">
-          <Link href="">
+          <Link href="jobs/_id" as={`/jobs/${_id}`}>
             <Button className="mr-half" type="primary" disabled={disableButtons}>
               Read More
             </Button>

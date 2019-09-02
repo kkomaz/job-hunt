@@ -44,7 +44,9 @@ export default function JobsNew() {
                   Confirm & Submit Job Post
                 </Button>
               </div>
-              <JobCard params={jobParams} />
+              <JobCard
+                params={jobParams}
+              />
             </Col>
           }
         </div>
