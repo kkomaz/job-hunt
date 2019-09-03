@@ -7,6 +7,7 @@ import {
   Select,
 } from 'antd'
 import Job from '../model/job'
+import Router from 'next/router'
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -18,9 +19,10 @@ function JobForm(props) {
 
   const createJob = async (params) => {
     const job = new Job(params)
-    console.log(job)
+    
     try {
       await job.save()
+      Router.push('/')
     } catch (e) {
       console.log(e)
     }

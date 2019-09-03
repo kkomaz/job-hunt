@@ -1,13 +1,8 @@
 import { useState } from 'react'
-import Head from '../../../components/head'
 import JobForm from '../../../components/jobForm'
 import JobCard from '../../../components/jobCard'
 import {
   Card,
-  Checkbox,
-  Icon,
-  Input,
-  Form,
   Button,
   Row,
   Col,
@@ -21,11 +16,8 @@ export default function JobsNew() {
     setPreview(true)
   }
 
-  console.log(jobParams)
-
   return (
     <div className="container mt-one">
-      <Head title="Home" />
       <Row gutter={16}>
         <div className="job-container">
           <Col xs={24} md={12}>

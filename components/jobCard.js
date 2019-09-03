@@ -4,6 +4,7 @@ import {
   Icon,
 } from 'antd'
 import Link from 'next/link'
+import classNames from 'classnames'
 
 const key = {
   full_time: 'Full Time',
@@ -40,6 +41,8 @@ export default function JobCard(props) {
     disableButtons,
   } = props.params
 
+  const { className } = props
+
   const goToDirect = () => {
      window.open(offer);
   }
@@ -47,7 +50,10 @@ export default function JobCard(props) {
   console.log(_id)
 
   return (
-    <Card bordered>
+    <Card
+      className={className}
+      bordered
+    >
       <div>
         <h2>{title}</h2>
         <h3>{company}</h3>

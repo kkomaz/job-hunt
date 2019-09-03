@@ -38,11 +38,8 @@ function Home(props) {
     return <div>Loading...</div>
   }
 
-  console.log(jobContainer.jobs)
-
   return (
     <div>
-      <Head title="Home" />
       <div className="container">
         <Row>
           <Col xs={18}>
@@ -51,6 +48,7 @@ function Home(props) {
                 const params = job.attrs
                 return (
                   <JobCard
+                    className="mb-one"
                     params={{...params, date: job.attrs.createdAt}}
                   />
                 )

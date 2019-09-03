@@ -2,6 +2,7 @@ import React from 'react'
 import App from 'next/app'
 import { UserSession, AppConfig } from 'blockstack';
 import Nav from '../components/nav'
+import Head from '../components/head'
 import Hero from '../components/hero'
 import { configure } from 'radiks';
 import MainContainer from '../unstated/MainContainer'
@@ -53,6 +54,7 @@ class MyApp extends App {
 
     return (
       <MainContainer>
+        <Head title="Home" />
         <Nav />
         <Hero />
         <Component {...pageProps} />

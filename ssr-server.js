@@ -23,6 +23,11 @@ app.prepare()
     
     server.use('/radiks', RadiksController);
 
+    server.get('/jobs/new', (req, res) => {
+      const actualPage = '/jobs/new'
+      app.render(req, res, actualPage)
+    })
+
     server.get('/jobs/:_id', (req, res) => {
       console.log(req.params)
       const actualPage = '/jobs/_id'

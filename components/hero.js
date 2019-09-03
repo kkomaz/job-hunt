@@ -9,7 +9,7 @@ function Hero() {
           One Stop Shop for Blockchain Jobs
         </h1>
         <div className="post-job-container">
-          <Link href="/jobs/new">
+          <Link href="/jobs/new" as={'/jobs/new'}>
             <Button
               className="self-centered"
               size="large"
