@@ -6,31 +6,31 @@ export default class Job extends Model {
   static schema = {
     company: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     location: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     title: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     type: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     job_place: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     category: {
       type: String,
-      encrypt: false,
+      decrypted: true
     },
     description: {
       type: String,
-      encrypt: false,
+      decrypted: true
     }
   }
 }

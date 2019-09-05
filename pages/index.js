@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Head from '../components/head'
+import axios from 'axios'
 import {
   Button,
   Card,
@@ -41,6 +41,12 @@ function Home(props) {
   return (
     <div>
       <div className="container">
+        <Button onClick={async () => {
+          const result = await axios.get('http://localhost:3000/api/jobs')
+          console.log(result)
+        }}>
+          Click it
+        </Button>
         <Row>
           <Col xs={18}>
             {
