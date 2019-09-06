@@ -1,6 +1,7 @@
 const { COLLECTION } = require('radiks-server/app/lib/constants');
 
 const aggregateJobs = async (radiksData, query) => {
+  console.log(query, 'query')
   const match = {
     $match: {
       radiksType: 'Job',

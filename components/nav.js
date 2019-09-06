@@ -227,56 +227,56 @@ class Nav extends React.Component {
           .mt-quarter { margin-top: .25em; }
           .mt-half    { margin-top: .5em; }
           .mt-one     { margin-top: 1em; }
-          .mt-two     { margin-top: 1em * 2; }
+          .mt-two     { margin-top: 2em; }
 
           // Bottom margin
           .mb-none    { margin-bottom: 0; }
           .mb-quarter { margin-bottom: .25em; }
           .mb-half    { margin-bottom: .5em; }
           .mb-one     { margin-bottom: 1em; }
-          .mb-two     { margin-bottom: 1em * 2; }
+          .mb-two     { margin-bottom: 2em; }
 
           // left margin
           .ml-none    { margin-left: 0; }
           .ml-quarter { margin-left: .25em; }
           .ml-half    { margin-left: .5em; }
           .ml-one     { margin-left: 1em; }
-          .ml-two     { margin-left: 1em * 2; }
+          .ml-two     { margin-left: 2em; }
 
           // right margin
           .mr-none    { margin-right: 0; }
           .mr-quarter { margin-right: .25em; }
           .mr-half    { margin-right: .5em; }
           .mr-one     { margin-right: 1em; }
-          .mr-two     { margin-right: 1em * 2; }
+          .mr-two     { margin-right: 2em; }
 
           // Top margin
           .pt-none    { padding-top: 0; }
           .pt-quarter { padding-top: .25em; }
           .pt-half    { padding-top: .5em; }
           .pt-one     { padding-top: 1em; }
-          .pt-two     { padding-top: 1em * 2; }
+          .pt-two     { padding-top: 2em; }
 
           // Bottom margin
           .pb-none    { padding-bottom: 0; }
           .pb-quarter { padding-bottom: .25em; }
           .pb-half    { padding-bottom: .5em; }
           .pb-one     { padding-bottom: 1em; }
-          .pb-two     { padding-bottom: 1em * 2; }
+          .pb-two     { padding-bottom: 2em; }
 
           // left margin
           .pl-none    { padding-left: 0; }
           .pl-quarter { padding-left: .25em; }
           .pl-half    { padding-left: .5em; }
           .pl-one     { padding-left: 1em; }
-          .pl-two     { padding-left: 1em * 2; }
+          .pl-two     { padding-left: 2em; }
 
           // right margin
           .pr-none    { padding-right: 0; }
           .pr-quarter { padding-right: .25em; }
           .pr-half    { padding-right: .5em; }
           .pr-one     { padding-right: 1em; }
-          .pr-two     { padding-right: 1em * 2; }
+          .pr-two     { padding-right: 2em; }
 
         `}</style>
       </nav>

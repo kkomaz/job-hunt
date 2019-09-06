@@ -29,7 +29,6 @@ app.prepare()
       mongoDBUrl: 'mongodb://job-hunt-dev:jobhunting1@ds359077.mlab.com:59077/job-hunt-dev',
     });
 
-    const Router = decorateApp(express.Router());
     const radiksData = RadiksController.DB.collection(COLLECTION);
     
     server.use('/radiks', RadiksController);
@@ -40,7 +39,6 @@ app.prepare()
     })
 
     server.get('/jobs/:_id', (req, res) => {
-      console.log(req.params)
       const actualPage = '/jobs/_id'
       app.render(req, res, actualPage)
     })

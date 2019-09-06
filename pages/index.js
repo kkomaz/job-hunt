@@ -1,37 +1,27 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import {
-  Button,
-  Card,
   Row,
   Col,
-  Icon,
 } from 'antd'
+import fetch from 'isomorphic-unfetch';
 import JobContainer from '../unstated/JobContainer'
 import JobCard from '../components/jobCard'
-import Job from '../model/job'
 
 function Home(props) {
   const jobContainer = JobContainer.useContainer()
-  const { query } = props
+  const { query, jobs } = props
 
-  const fetchJobs = async (page = 0) => {
-    // const result = await Job.fetchList({
-    //   sort: '-createdAt',
-    //   limit: 5,
-    // })
-    const result = await axios.get('http://localhost:3000/api/jobs');
-
-    jobContainer.setJobs({ ...jobContainer.jobs, [page]: result.data.jobs })
+  const setJobContainer = async (page = 0) => {
+    jobContainer.setJobs({ ...jobContainer.jobs, [page]: jobs })
   }
 
   useEffect(() => {
     if (!query.page || parseInt(query.page) === 1) {
-      fetchJobs()
+      setJobContainer()
     }
 
     if (parseInt(query.page) > 1) {
-      fetchJobs(query.page - 1)
+      setJobContainer(query.page - 1)
     }
   }, [])
 
@@ -42,14 +32,8 @@ function Home(props) {
   return (
     <div>
       <div className="container">
-        <Button onClick={async () => {
-          const result = await axios.get('http://localhost:3000/api/jobs')
-          console.log(result)
-        }}>
-          Click it
-        </Button>
         <Row>
-          <Col xs={18}>
+          <Col md={18} sm={24}>
             {
               jobContainer.jobs[query.page || 0].map((job) => {
                 const params = job
@@ -62,7 +46,7 @@ function Home(props) {
               })
             }
           </Col>
-          <Col xs={6}>
+          <Col md={6} sm={24}>
             <div className="mt-one" style={{ padding: '0 20px' }}>
               <h3>Who are we?</h3>
               <p className="mb-one large">
@@ -146,9 +130,13 @@ function Home(props) {
   )
 }
 
-Home.getInitialProps = ({ query }) => {
+Home.getInitialProps = async ({ query }) => {
+  const result = await fetch('http://localhost:3000/api/jobs')
+  const { jobs } = await result.json()
+
   return {
-    query
+    query,
+    jobs,
   }
 }
 

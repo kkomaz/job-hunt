@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 function Hero() {
   return (
-    <section className="hero main is-info">
+    <section className="hero main is-info mb-one">
       <div className="hero-body">
         <h1 className="title white self-centered">
           One Stop Shop for Blockchain Jobs
