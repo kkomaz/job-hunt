@@ -4,7 +4,7 @@ import {
   Icon,
 } from 'antd'
 import Link from 'next/link'
-import classNames from 'classnames'
+import { convertDate } from '../utils'
 
 const key = {
   full_time: 'Full Time',
@@ -47,7 +47,7 @@ export default function JobCard(props) {
      window.open(offer);
   }
 
-  console.log(_id)
+  console.log(date);
 
   return (
     <Card
@@ -63,7 +63,9 @@ export default function JobCard(props) {
               className="mr-quarter"
               type="calendar"
             />
-            <span className="mr-one">{date || Date.now()}</span>
+            <span className="mr-one">
+              {convertDate(date) || Date.now()}
+            </span>
           </div>
           <div>
             <Icon

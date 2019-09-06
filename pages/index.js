@@ -16,12 +16,13 @@ function Home(props) {
   const { query } = props
 
   const fetchJobs = async (page = 0) => {
-    const result = await Job.fetchList({
-      sort: '-createdAt',
-      limit: 5,
-    })
+    // const result = await Job.fetchList({
+    //   sort: '-createdAt',
+    //   limit: 5,
+    // })
+    const result = await axios.get('http://localhost:3000/api/jobs');
 
-    jobContainer.setJobs({ ...jobContainer.jobs, [page]: result })
+    jobContainer.setJobs({ ...jobContainer.jobs, [page]: result.data.jobs })
   }
 
   useEffect(() => {
@@ -51,11 +52,11 @@ function Home(props) {
           <Col xs={18}>
             {
               jobContainer.jobs[query.page || 0].map((job) => {
-                const params = job.attrs
+                const params = job
                 return (
                   <JobCard
                     className="mb-one"
-                    params={{...params, date: job.attrs.createdAt}}
+                    params={{...params, date: job.createdAt}}
                   />
                 )
               })
