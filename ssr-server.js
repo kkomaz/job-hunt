@@ -14,7 +14,8 @@ const makeApiController = require('./ApiController');
 // Job Aggregators
 const { decorateApp } = require('@awaitjs/express');
 const { COLLECTION } = require('radiks-server/app/lib/constants');
-const aggregateJobs = require('./aggregators/aggregateJobs')
+const aggregateJobs = require('./aggregators/aggregateJobs');
+const aggregateJob = require('./aggregators/aggregateJob');
 
 app.prepare()
   .then(async () => {
@@ -53,6 +54,11 @@ app.prepare()
       let jobs = await aggregateJobs(radiksData, req.query)
       res.json({ jobs })
     })
+
+    server.get('/api/jobs/:_id', async(req, res) => {
+      const job = await aggregateJob(radiksData, req);
+      res.json({ job })
+    });
 
 
     server.get('*', (req, res) => {
