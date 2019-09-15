@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   Input,
   Form,
@@ -6,8 +7,9 @@ import {
   Col,
   Select,
 } from 'antd'
-import Job from '../model/job'
 import Router from 'next/router'
+import { getConfig, User } from 'radiks';
+import Job from '../model/job'
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -16,8 +18,16 @@ function JobForm(props) {
   const {
     form: { getFieldDecorator, validateFields }
   } = props
+  const { userSession } = getConfig();
+
+  useEffect(() => {
+    if (!userSession.isUserSignedIn()) {
+      Router.push('/')
+    }  
+  }, [])
 
   const createJob = async (params) => {
+    console.log(params, 'PARAMS')
     const job = new Job(params)
     
     try {
@@ -39,7 +49,8 @@ function JobForm(props) {
       }
 
       if (!err) {
-        createJob(values)
+        const userData = userSession.loadUserData()
+        createJob({ ...values, creator: userData.username })
       }
     })
   }

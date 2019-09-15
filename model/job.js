@@ -4,6 +4,10 @@ export default class Job extends Model {
   static className = 'Job'
 
   static schema = {
+    creator: {
+      type: String,
+      decrypted: true,
+    },
     company: {
       type: String,
       decrypted: true
