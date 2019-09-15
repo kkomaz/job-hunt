@@ -1,10 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { AppConfig, UserSession } from 'blockstack'
+import Router from 'next/router'
 import { getConfig, User } from 'radiks';
 import {
   Button,
+  Layout,
+  Menu,
 } from 'antd'
+
+const {
+  Header,
+} = Layout
 
 class Nav extends React.Component {
   constructor(props) {
@@ -22,14 +29,12 @@ class Nav extends React.Component {
     
     if (userSession.isUserSignedIn()) {
       const result = userSession.loadUserData()
-      console.log(result)
       return this.setState({ isSignedIn: true })
     }
 
     if (userSession.isSignInPending()) {
       await userSession.handlePendingSignIn();
       await User.createWithCurrentUser();
-      console.log('hitting here!')
       this.setState({ isSignedIn: true })
     }
   }
@@ -37,7 +42,6 @@ class Nav extends React.Component {
 
   handleSignIn = (e) => {
     const { userSession } = getConfig();
-    e.preventDefault()
     userSession.redirectToSignIn()
   }
 
@@ -48,58 +52,57 @@ class Nav extends React.Component {
     window.location = '/'
   }
 
-  testIt = async () => {
-    const { userSession } = getConfig();
+  onMenuClick = (value) => {
+    if (value.key === 'home') {
+      Router.push('/')
+    }
 
-    const options = { encrypt: false }
+    console.log(value.key)
 
-    const params = JSON.stringify({ done: true })
+    if (value.key === 'sign-out') {
+      this.handleSignOut()
+    }
 
-    await userSession.putFile('test.json', params, options)
-  }
-
-  getIt = async () => {
-    const { userSession } = getConfig();
-
-    const options = { decrypt: false }
-
-    await userSession.getFile('test.json', options)
+    if (value.key === 'sign-in') {
+      this.handleSignIn()
+    }
   }
 
   render() {
     const { isSignedIn } = this.state
 
     return (
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          <ul>
-            <li>
-              {
-                isSignedIn ?
-                <Button onClick={this.handleSignOut}>
-                  Sign Out
-                </Button> :
-                <Button onClick={this.handleSignIn}>
-                  Sign In
-                </Button>
-              }
-            </li>
-            <li>
-              <Button onClick={this.testIt}>
-                Test Button
-              </Button>
-              <Button onClick={this.getIt}>
-                Get Button
-              </Button>
-            </li>
-          </ul>
-        </ul>
-
+      <Header
+        style={{
+          backgroundImage: 'linear-gradient(141deg, #bdc3c7 0%, #2c3e50 100%)',
+        }}
+      >
+        <Menu
+          className="nav-layout"
+          mode="horizontal"
+          onClick={this.onMenuClick}
+          style={{
+            color: 'white',
+            backgroundImage: 'linear-gradient(141deg, #bdc3c7 0%, #2c3e50 100%)',
+          }}
+        >
+          <Menu.Item key="home">
+            Home
+          </Menu.Item>
+          {
+            isSignedIn ?
+            <Menu.Item
+              key="sign-out"
+            >
+              Sign Out
+            </Menu.Item> :
+            <Menu.Item
+              key="sign-in"
+            >
+              Sign In
+            </Menu.Item>
+          }
+        </Menu>
         <style jsx>{`
           ul {
             display: flex;
@@ -121,6 +124,15 @@ class Nav extends React.Component {
             margin: 0;
             font-family: Titillium Web, -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
               Helvetica, sans-serif;
+          }
+
+          .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
+            color: white;
+          }
+
+          .nav-layout {
+            display: flex;
+            justify-content: flex-end;
           }
 
           .white {
@@ -279,7 +291,7 @@ class Nav extends React.Component {
           .pr-two     { padding-right: 2em; }
 
         `}</style>
-      </nav>
+      </Header>
     )
   }
 }

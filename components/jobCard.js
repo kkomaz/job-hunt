@@ -44,10 +44,12 @@ export default function JobCard(props) {
   const { className } = props
 
   const goToDirect = () => {
-     window.open(offer);
+    if (offer.includes('http')) {
+      window.open(offer, '_blank')
+    } else {
+      window.open(`https://${offer}`, '_blank')
+    }
   }
-
-  console.log(date);
 
   return (
     <Card
