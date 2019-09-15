@@ -41,7 +41,10 @@ export default function JobCard(props) {
     disableButtons,
   } = props.params
 
-  const { className } = props
+  const {
+    className,
+    shortened,
+  } = props
 
   const goToDirect = () => {
     if (offer.includes('http')) {
@@ -50,6 +53,16 @@ export default function JobCard(props) {
       window.open(`https://${offer}`, '_blank')
     }
   }
+
+  const filterJobDescription = (desc) => {
+    console.log(shortened);
+    if (shortened) {
+      return (`${desc.substring(0, 250)}...`)
+    }
+
+    return desc
+  }
+
 
   return (
     <Card
@@ -92,7 +105,7 @@ export default function JobCard(props) {
           </div>
         </div>
         <p className="mt-one mb-one">
-          {description}
+          {filterJobDescription(description)}
         </p>
 
         <div className="card-buttons">
@@ -123,4 +136,5 @@ export default function JobCard(props) {
 
 JobCard.defaultProps = {
   disableButtons: false,
+  shortened: false,
 }

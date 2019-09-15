@@ -41,6 +41,7 @@ function Home(props) {
                   <JobCard
                     className="mb-one"
                     params={{...params, date: job.createdAt}}
+                    shortened
                   />
                 )
               })

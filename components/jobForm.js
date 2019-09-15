@@ -8,7 +8,7 @@ import {
   Select,
 } from 'antd'
 import Router from 'next/router'
-import { getConfig, User } from 'radiks';
+import { getConfig } from 'radiks';
 import Job from '../model/job'
 const { Option } = Select;
 
@@ -27,7 +27,6 @@ function JobForm(props) {
   }, [])
 
   const createJob = async (params) => {
-    console.log(params, 'PARAMS')
     const job = new Job(params)
     
     try {
@@ -39,19 +38,20 @@ function JobForm(props) {
   }
 
   const handleSubmit = (e, preview) => {
-    console.log(preview, 'preview')
     e.preventDefault()
 
-    validateFields((err, values) => {
+    return validateFields((err, values) => {
       if (!err && preview) {
-        props.setJobParams(values)
-        props.showPreview()
+        props.setJobParams({ ...values, date: Date.now() })
+        return props.showPreview()
       }
 
       if (!err) {
         const userData = userSession.loadUserData()
-        createJob({ ...values, creator: userData.username })
+        return createJob({ ...values, creator: userData.username })
       }
+
+      return null;
     })
   }
 
