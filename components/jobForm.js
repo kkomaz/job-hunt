@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Input,
   Form,
@@ -7,8 +7,9 @@ import {
   Col,
   Select,
 } from 'antd'
+import { get } from 'lodash'
 import Router from 'next/router'
-import { getConfig } from 'radiks';
+import { getConfig } from 'radiks'
 import Job from '../model/job'
 const { Option } = Select;
 
@@ -16,9 +17,13 @@ const { TextArea } = Input;
 
 function JobForm(props) {
   const {
-    form: { getFieldDecorator, validateFields }
+    form: { getFieldDecorator, validateFields },
+    currentJob,
+    editMode,
+    onCancel
   } = props
   const { userSession } = getConfig();
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     if (!userSession.isUserSignedIn()) {
@@ -31,6 +36,20 @@ function JobForm(props) {
     
     try {
       await job.save()
+      setSubmitting(true)
+      Router.push('/')
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const editJob = async (params) => {
+    const job = await Job.findById(currentJob._id)
+    
+    try {
+      job.update(params)
+      await job.save()
+      setSubmitting(true)
       Router.push('/')
     } catch (e) {
       console.log(e)
@@ -39,6 +58,7 @@ function JobForm(props) {
 
   const handleSubmit = (e, preview) => {
     e.preventDefault()
+    setSubmitting(true)
 
     return validateFields((err, values) => {
       if (!err && preview) {
@@ -48,7 +68,7 @@ function JobForm(props) {
 
       if (!err) {
         const userData = userSession.loadUserData()
-        return createJob({ ...values, creator: userData.username })
+        return editMode ? editJob(values) : createJob({ ...values, creator: userData.username })
       }
 
       return null;
@@ -63,9 +83,13 @@ function JobForm(props) {
     <Row>
       <Col xs={24}>
         <Form onSubmit={handleSubmit}>
-          <Form.Item label="Company Name" style={{ marginBottom: '10px' }}>
+          <Form.Item
+            label="Company Name"
+            style={{ marginBottom: '10px' }}
+          >
             {
               getFieldDecorator('company', {
+                initialValue: get(currentJob, 'company', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -76,9 +100,13 @@ function JobForm(props) {
               )
             }
           </Form.Item>
-          <Form.Item label="Company location" style={{ marginBottom: '10px' }}>
+          <Form.Item
+            label="Company location"
+            style={{ marginBottom: '10px' }}
+          >
             {
               getFieldDecorator('location', {
+                initialValue: get(currentJob, 'location', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -92,6 +120,7 @@ function JobForm(props) {
           <Form.Item label="Job Title" style={{ marginBottom: '10px' }}>
             {
               getFieldDecorator('title', {
+                initialValue: get(currentJob, 'title', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -105,6 +134,7 @@ function JobForm(props) {
           <Form.Item label="URL of the offer" style={{ marginBottom: '10px' }}>
             {
               getFieldDecorator('offer', {
+                initialValue: get(currentJob, 'offer', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -119,6 +149,7 @@ function JobForm(props) {
           <Form.Item label="Job Type">
             {
               getFieldDecorator('type', {
+                initialValue: get(currentJob, 'type', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -136,6 +167,7 @@ function JobForm(props) {
           <Form.Item label="Job Place">
             {
               getFieldDecorator('place', {
+                initialValue: get(currentJob, 'place', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -151,6 +183,7 @@ function JobForm(props) {
           <Form.Item label="Category">
             {
               getFieldDecorator('category', {
+                initialValue: get(currentJob, 'category', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -173,6 +206,7 @@ function JobForm(props) {
           <Form.Item label="Description" style={{ marginBottom: '10px' }}>
             {
               getFieldDecorator('description', {
+                initialValue: get(currentJob, 'description', ''),
                 rules: [
                   { required: true, message: 'Required' }
                 ]
@@ -190,18 +224,31 @@ function JobForm(props) {
               justifyContent: 'flex-end'
             }}
           >
+            {
+              !editMode &&
+              <Button
+                onClick={onPreviewClick}
+                className="mr-one"
+              >
+                Preview
+              </Button>
+            }
+            {
+              editMode &&
+              <Button
+                onClick={onCancel}
+                className="mr-one"
+              >
+                Cancel
+              </Button>
+            }
             <Button
-              onClick={onPreviewClick}
-              className="mr-one"
-            >
-              Preview
-            </Button>
-            <Button
+              disabled={submitting}
               type="primary"
               htmlType="submit"
               icon="cloud-server"
             >
-              Post Job
+              { editMode ? 'Edit Job' : 'Post Job' }
             </Button>
           </Form.Item>
         </Form>
@@ -213,6 +260,10 @@ function JobForm(props) {
       `}</style>
     </Row>
   )
+}
+
+JobForm.defaultProps = {
+  editMode: false,
 }
 
 const wrappedJobForm = Form.create({
