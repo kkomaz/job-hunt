@@ -10,6 +10,7 @@
 /build
 /dist
 /.next
+dev.js
 
 # misc
 .DS_Store

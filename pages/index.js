@@ -132,7 +132,7 @@ function Home(props) {
 }
 
 Home.getInitialProps = async ({ query }) => {
-  const result = await fetch('http://localhost:3000/api/jobs')
+  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs`)
   const { jobs } = await result.json()
 
   return {

@@ -39,7 +39,7 @@ export default function About(props) {
 
 About.getInitialProps = async(context) => {
   const id = context.asPath.split('/')[2]
-  const result = await fetch(`http://localhost:3000/api/jobs/${id}`)
+  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs/${id}`)
   const { job } = await result.json()
 
   return {
