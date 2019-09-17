@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "node ssr-server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node ssr-server.js"
   },
   "dependencies": {
     "@awaitjs/express": "^0.3.0",
