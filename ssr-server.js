@@ -19,8 +19,6 @@ const aggregateJob = require('./aggregators/aggregateJob');
 const port = process.env.PORT || 3000;
 const keys = require('./config/keys');
 
-console.log(keys.mongoURI);
-
 app.prepare()
   .then(async () => {
     const server = express()

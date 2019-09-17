@@ -55,7 +55,6 @@ export default function JobCard(props) {
   }
 
   const filterJobDescription = (desc) => {
-    console.log(shortened);
     if (shortened) {
       return (`${desc.substring(0, 250)}...`)
     }

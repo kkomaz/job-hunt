@@ -57,8 +57,6 @@ class Nav extends React.Component {
       Router.push('/')
     }
 
-    console.log(value.key)
-
     if (value.key === 'sign-out') {
       this.handleSignOut()
     }

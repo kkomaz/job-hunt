@@ -24,8 +24,6 @@ export default function About(props) {
 
   }, [])
 
-  console.log(isSignedIn)
-
   return (
     <div className="container">
       <JobCardDetail

@@ -3,7 +3,6 @@ const aggregateJob = async (radiksData, req) => {
     _id: req.params._id,
   })
 
-  console.log(result);
   return result;
 }
 

@@ -8,8 +8,6 @@ const antdVariables = lessToJS(fs.readFileSync(path.resolve(__dirname, './assets
 const keys = require('./config/keys')
 let radiksServer = 'http://localhost:3000'
 
-console.log(process.env.HEROKU_APP_NAME, 'HEROKU_APP_NAME');
-
 if (process.env.HEROKU_APP_NAME) {
   radiksServer =`https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
 }
