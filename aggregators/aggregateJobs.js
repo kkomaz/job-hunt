@@ -17,15 +17,21 @@ const aggregateJobs = async (radiksData, query) => {
 
   const parsedLimit = parseInt(query.limit)
 
-  const limit = {
-    $limit: parsedLimit || 5
+  const facet = {
+    $facet: {
+      metadata: [ { $count: "total" }, { $addFields: { page: parseInt(query.page) || 0 } } ],
+      data: [ { $skip: query.skip || 0 }, { $limit: parsedLimit || 2 } ]
+    }
   }
 
-  const pipeline = [match, sort, skip, limit]
-
+  const pipeline = [match, sort, facet]
   const jobs = await radiksData.aggregate(pipeline).toArray()
+  const result = jobs[0]
 
-  return jobs
+  return {
+    metadata: result.metadata[0],
+    data: result.data,
+  }
 }
 
 module.exports = aggregateJobs

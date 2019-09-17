@@ -25,7 +25,7 @@ function Home(props) {
     }
   }, [])
 
-  if (!jobContainer.jobs[query.page || 0]) {
+  if (!jobContainer.jobs[query.page - 1 || 0]) {
     return <div>Loading...</div>
   }
 
@@ -35,7 +35,7 @@ function Home(props) {
         <Row>
           <Col md={18} sm={24}>
             {
-              jobContainer.jobs[query.page || 0].map((job) => {
+              jobContainer.jobs[query.page - 1 || 0].map((job) => {
                 const params = job
                 return (
                   <JobCard
@@ -74,13 +74,6 @@ function Home(props) {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-        }
-
-        p {
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
         }
 
         .card-buttons {
@@ -132,12 +125,14 @@ function Home(props) {
 }
 
 Home.getInitialProps = async ({ query }) => {
-  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs`)
+  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?page=${query.page}`)
   const { jobs } = await result.json()
+
+  console.log(jobs)
 
   return {
     query,
-    jobs,
+    jobs: jobs.data,
   }
 }
 
