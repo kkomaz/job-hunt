@@ -83,6 +83,11 @@ export default function JobCard(props) {
         <div>
           <h2>{title}</h2>
           <h3>{company}</h3>
+          <h4>
+            {
+              `Founded by ${userData.username}`
+            }
+          </h4>
           <div className="basic-details">
             <div>
               <Icon
@@ -115,7 +120,12 @@ export default function JobCard(props) {
               <span>{location}</span>
             </div>
           </div>
-          <p className="mt-one mb-one">
+          <p
+            className="mt-one mb-one"
+            style={{
+              whiteSpace: 'pre-line'
+            }}
+          >
             {description}
           </p>
 

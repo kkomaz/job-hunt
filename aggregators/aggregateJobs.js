@@ -1,5 +1,5 @@
 const aggregateJobs = async (radiksData, query) => {
-  const size = 2;
+  const size = 5;
   const match = {
     $match: {
       radiksType: 'Job',
