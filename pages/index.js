@@ -1,18 +1,46 @@
 import { useEffect } from 'react'
 import {
-  Row,
+  Button,
   Col,
+  Row,
 } from 'antd'
 import fetch from 'isomorphic-unfetch';
 import JobContainer from '../unstated/JobContainer'
 import JobCard from '../components/jobCard'
+import Router from 'next/router';
+import Link from 'next/link'
 
 function Home(props) {
   const jobContainer = JobContainer.useContainer()
-  const { query, jobs } = props
+  const { query, jobs, metadata } = props
 
-  const setJobContainer = async (page = 0) => {
+  const setJobContainer = (page = 0) => {
     jobContainer.setJobs({ ...jobContainer.jobs, [page]: jobs })
+  }
+
+  const onNextPage = () => {
+    if (metadata.page === 0) {
+      Router.push({
+        pathname: '/',
+        query: { page: 2 }
+      })
+    } else {
+      Router.push({
+        pathname: '/',
+        query: { page: metadata.page + 1 }
+      })
+    }
+  }
+
+  const onPreviousClick = () => {
+    if (metadata.page === 2) {
+      Router.push('/')
+    } else {
+      Router.push({
+        pathname: '/',
+        query: { page: metadata.page - 1 }
+      })
+    }
   }
 
   useEffect(() => {
@@ -23,10 +51,11 @@ function Home(props) {
     if (parseInt(query.page) > 1) {
       setJobContainer(query.page - 1)
     }
-  }, [])
+  }, [query.page])
+
 
   if (!jobContainer.jobs[query.page - 1 || 0]) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>  
   }
 
   return (
@@ -46,6 +75,18 @@ function Home(props) {
                 )
               })
             }
+            <div className="home-buttons">
+              <Button
+                onClick={onPreviousClick}
+                className="mr-one"
+                disabled={metadata.page === 0 || metadata.page === 1}
+              >
+                Previous Page
+              </Button>
+              <Button onClick={onNextPage}>
+                Next Page
+              </Button>
+            </div>
           </Col>
           <Col md={6} sm={24}>
             <div className="mt-one" style={{ padding: '0 20px' }}>
@@ -70,6 +111,12 @@ function Home(props) {
       </div>
 
       <style jsx>{`
+        .home-buttons {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 10px;  
+        }
+
         .basic-details {
           display: flex;
           align-items: center;
@@ -128,11 +175,12 @@ Home.getInitialProps = async ({ query }) => {
   const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?page=${query.page}`)
   const { jobs } = await result.json()
 
-  console.log(jobs)
+  console.log(jobs);
 
   return {
     query,
     jobs: jobs.data,
+    metadata: jobs.metadata,
   }
 }
 

@@ -1,6 +1,5 @@
-const { COLLECTION } = require('radiks-server/app/lib/constants');
-
 const aggregateJobs = async (radiksData, query) => {
+  const size = 2;
   const match = {
     $match: {
       radiksType: 'Job',
@@ -11,16 +10,14 @@ const aggregateJobs = async (radiksData, query) => {
     $sort: { createdAt: query.sort || - 1 }
   }
 
-  const skip = {
-    $skip: query.skip || 0
-  }
-
-  const parsedLimit = parseInt(query.limit)
+  const parsedLimit = parseInt(query.limit) || size
+  const pageNumber = parseInt(query.page);
+  const currentPage = !pageNumber || pageNumber === 1 ? 1 : query.page
 
   const facet = {
     $facet: {
       metadata: [ { $count: "total" }, { $addFields: { page: parseInt(query.page) || 0 } } ],
-      data: [ { $skip: query.skip || 0 }, { $limit: parsedLimit || 2 } ]
+      data: [ { $skip: (parsedLimit * (currentPage - 1)) }, { $limit: parsedLimit } ]
     }
   }
 
