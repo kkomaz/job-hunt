@@ -85,7 +85,7 @@ export default function JobCard(props) {
           <h3>{company}</h3>
           <h4>
             {
-              `Founded by ${userData.username}`
+              `Founded by ${creator}`
             }
           </h4>
           <div className="basic-details">

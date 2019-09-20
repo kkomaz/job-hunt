@@ -30,6 +30,7 @@ export default function JobCard(props) {
   const {
     _id,
     company,
+    creator,
     location,
     title,
     offer,
@@ -71,6 +72,11 @@ export default function JobCard(props) {
       <div>
         <h2>{title}</h2>
         <h3>{company}</h3>
+        <h4>
+          {
+            `Founded by ${creator}`
+          }
+        </h4>
         <div className="basic-details">
           <div>
             <Icon
