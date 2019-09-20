@@ -8,8 +8,8 @@ const antdVariables = lessToJS(fs.readFileSync(path.resolve(__dirname, './assets
 const keys = require('./config/keys')
 let radiksServer = 'http://localhost:3000'
 
-if (process.env.HEROKU_APP_NAME) {
-  radiksServer =`https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+if (process.env.RADIKS_API_SERVER) {
+  radiksServer = process.env.RADIKS_API_SERVER || 'http://localhost:5000';
 }
 
 // fix: prevents error when .less files are required by node
