@@ -8,7 +8,6 @@ import fetch from 'isomorphic-unfetch';
 import JobContainer from '../unstated/JobContainer'
 import JobCard from '../components/jobCard'
 import Router from 'next/router';
-import Link from 'next/link'
 
 function Home(props) {
   const jobContainer = JobContainer.useContainer()
@@ -58,11 +57,23 @@ function Home(props) {
     return <div>Loading...</div>  
   }
 
+  console.log(jobs);
+  
+
   return (
     <div>
       <div className="container">
         <Row>
           <Col md={18} sm={24}>
+            {
+              jobs.length === 0 &&
+              <div className="no-jobs">
+                <img src="https://cdn1.imggmi.com/uploads/2019/9/20/d091f703836df01093621c223d88321d-full.png" alt="empty" />
+                <h2>
+                  No jobs exist in this page!
+                </h2>
+              </div>
+            }
             {
               jobContainer.jobs[query.page - 1 || 0].map((job) => {
                 const params = job
@@ -83,7 +94,10 @@ function Home(props) {
               >
                 Previous Page
               </Button>
-              <Button onClick={onNextPage}>
+              <Button
+                onClick={onNextPage}
+                disabled={jobs.length === 0}
+              >
                 Next Page
               </Button>
             </div>
@@ -111,6 +125,13 @@ function Home(props) {
       </div>
 
       <style jsx>{`
+        .no-jobs {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+        }
+
         .home-buttons {
           display: flex;
           justify-content: center;
@@ -174,11 +195,10 @@ function Home(props) {
 Home.getInitialProps = async ({ query }) => {
   const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?page=${query.page}`)
   const { jobs } = await result.json()
-
-  console.log(jobs);
+  const page = !!parseInt(query.page) ? parseInt(query.page) : 1;
 
   return {
-    query,
+    query: { ...query, page },
     jobs: jobs.data,
     metadata: jobs.metadata,
   }

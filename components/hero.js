@@ -65,7 +65,7 @@ class Hero extends Component {
       <section className="hero main is-info mb-one">
         <div className="hero-body">
           <h1 className="title white self-centered">
-            One Stop Shop for Blockchain Jobs
+            One Stop Shop for Crypto Jobs
           </h1>
           <div className="post-job-container">
             {
