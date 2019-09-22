@@ -73,9 +73,10 @@ export default function JobCard(props) {
         <h2>{title}</h2>
         <h3>{company}</h3>
         <h4>
-          {
-            `Founded by ${creator}`
-          }
+          Found by &nbsp;
+          <Link href="users/_id" as={`/users/${creator}`}>
+            <a style={{ fontSize: '14px' }}>{creator}</a>
+          </Link>
         </h4>
         <div className="basic-details">
           <div>

@@ -30,16 +30,22 @@ class Nav extends React.Component {
     
     if (userSession.isUserSignedIn()) {
       const result = userSession.loadUserData();
-      return this.setState({ isSignedIn: true });
+      return this.setState({
+        isSignedIn: true,
+        username: result.username,
+      });
     }
 
     if (userSession.isSignInPending()) {
       this.setState({ isSigningIn: true }, async () => {
         await userSession.handlePendingSignIn();
         await User.createWithCurrentUser();
+        const result = userSession.loadUserData();
+
         this.setState({
           isSignedIn: true,
           isSigningIn: false,
+          username: result.username,
         });
       });
     }
@@ -59,8 +65,14 @@ class Nav extends React.Component {
   }
 
   onMenuClick = (value) => {
+    const { username } = this.state
+
     if (value.key === 'home') {
       Router.push('/');
+    }
+
+    if (value.key === 'profile') {
+      Router.push(`/users/${username}`)
     }
 
     if (value.key === 'sign-out') {
@@ -97,6 +109,13 @@ class Nav extends React.Component {
             Home
           </Menu.Item>
           {
+            isSignedIn &&
+            <Menu.Item key="profile">
+              My Profile
+            </Menu.Item>
+          }
+          {
+            // eslint-disable-next-line no-nested-ternary
             isSignedIn ?
             <Menu.Item
               key="sign-out"

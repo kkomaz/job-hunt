@@ -63,7 +63,8 @@ function JobForm(props) {
 
     return validateFields((err, values) => {
       if (!err && preview) {
-        props.setJobParams({ ...values, date: Date.now() });
+        const userData = userSession.loadUserData();
+        props.setJobParams({ ...values, date: Date.now(), creator: userData.username });
         return props.showPreview();
       }
 

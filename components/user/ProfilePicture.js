@@ -4,7 +4,7 @@ export default function ProfilePicture({ user }) {
   return (
     <div className="image-container">
       <img
-        src={_.get(user, 'profile.image[0].contentUrl', '')}
+        src={_.get(user, 'profile.image[0].contentUrl', 'https://i.imgur.com/w1ur3Lq.jpg')}
         alt="profile"
         style={{
           width: '200px',

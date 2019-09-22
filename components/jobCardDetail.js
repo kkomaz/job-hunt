@@ -6,6 +6,7 @@ import {
   Modal
 } from 'antd';
 import Router from 'next/router';
+import Link from 'next/link';
 import Job from '../model/job';
 import { convertDate } from '../utils';
 import JobForm from './jobForm';
@@ -84,9 +85,10 @@ export default function JobCard(props) {
           <h2>{title}</h2>
           <h3>{company}</h3>
           <h4>
-            {
-              `Founded by ${creator}`
-            }
+            Found by &nbsp;
+            <Link href="users/_id" as={`/users/${creator}`}>
+              <a style={{ fontSize: '14px' }}>{creator}</a>
+            </Link>
           </h4>
           <div className="basic-details">
             <div>

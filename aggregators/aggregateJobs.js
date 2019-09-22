@@ -6,8 +6,6 @@ const aggregateJobs = async (radiksData, query) => {
     },
   }
 
-  console.log(query);
-
   if (query.creator) {
     match = {
       $match: {
@@ -16,8 +14,6 @@ const aggregateJobs = async (radiksData, query) => {
       },
     } 
   }
-
-  console.log(match);
 
   const sort = {
     $sort: { createdAt: query.sort || - 1 },

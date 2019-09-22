@@ -32,8 +32,6 @@ export default function UserIdPage(props) {
 
   const userProofs = _.get(user, 'profile.account', [])
 
-  console.log(jobs);
-
   return (
     <div className="container">
       <Row gutter={16}>
@@ -110,7 +108,6 @@ UserIdPage.getInitialProps = async(context) => {
   const jobsResult = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?creator=${id}&limit=0`);
   const { jobs } = await jobsResult.json();
 
-  console.log(jobs);
   return {
     user,
     jobs: jobs.data,
