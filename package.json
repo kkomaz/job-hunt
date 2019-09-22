@@ -3,11 +3,11 @@
   "scripts": {
     "babel-node": "babel-node --config-file ./babel-server.config.js",
     "build": "next build",
-    "dev": "NODE_ENV=development yarn babel-node server",
+    "dev": "NODE_ENV=development npm run babel-node server",
     "heroku-postbuild": "next build",
     "lint": "eslint ./components/**/*.js ./pages/**/*.js --fix",
     "prettier": "prettier --config .prettierrc ./common/**/*.js ./components/**/*.js ./pages/**/*.js",
-    "start": "NODE_ENV=production yarn babel-node server"
+    "start": "NODE_ENV=production npm run babel-node server"
   },
   "dependencies": {
     "@awaitjs/express": "^0.3.0",
