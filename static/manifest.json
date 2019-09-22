@@ -1,10 +1,10 @@
 {
-  "name": "Banter",
+  "name": "Jobs In Cryto",
   "start_url": "localhost:3000",
-  "description": "Blockchain job hunt",
+  "description": "One Stop Shop for Jobs in Crypto",
   "icons": [
     {
-      "src": "https://banter-pub.imgix.net/cat.svg",
+      "src": "https://cdn1.imggmi.com/uploads/2019/9/22/68634d282d64b9931900a20ce70c5f1f-full.png",
       "sizes": "192x192",
       "type": "image/svg"
     }
