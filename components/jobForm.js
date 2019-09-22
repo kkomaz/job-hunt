@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import {
   Input,
   Form,
   Button,
   Row,
   Col,
-  Select,
-} from 'antd'
-import { get } from 'lodash'
-import Router from 'next/router'
-import { getConfig } from 'radiks'
-import Job from '../model/job'
+  Select
+} from 'antd';
+import { get } from 'lodash';
+import Router from 'next/router';
+import { getConfig } from 'radiks';
+import Job from '../model/job';
+
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -20,64 +21,64 @@ function JobForm(props) {
     form: { getFieldDecorator, validateFields },
     currentJob,
     editMode,
-    onCancel
-  } = props
+    onCancel,
+  } = props;
   const { userSession } = getConfig();
-  const [submitting, setSubmitting] = useState(false)
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (!userSession.isUserSignedIn()) {
-      Router.push('/')
+      Router.push('/');
     }  
-  }, [])
+  }, []);
 
   const createJob = async (params) => {
-    const job = new Job(params)
+    const job = new Job(params);
     
     try {
-      await job.save()
-      setSubmitting(true)
-      Router.push('/')
+      await job.save();
+      setSubmitting(true);
+      Router.push('/');
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   const editJob = async (params) => {
-    const job = await Job.findById(currentJob._id)
+    const job = await Job.findById(currentJob._id);
     
     try {
-      job.update(params)
-      await job.save()
-      setSubmitting(true)
-      Router.push('/')
+      job.update(params);
+      await job.save();
+      setSubmitting(true);
+      Router.push('/');
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   const handleSubmit = (e, preview) => {
-    e.preventDefault()
-    setSubmitting(true)
+    e.preventDefault();
+    setSubmitting(true);
 
     return validateFields((err, values) => {
       if (!err && preview) {
-        props.setJobParams({ ...values, date: Date.now() })
-        return props.showPreview()
+        props.setJobParams({ ...values, date: Date.now() });
+        return props.showPreview();
       }
 
       if (!err) {
-        const userData = userSession.loadUserData()
-        return editMode ? editJob(values) : createJob({ ...values, creator: userData.username })
+        const userData = userSession.loadUserData();
+        return editMode ? editJob(values) : createJob({ ...values, creator: userData.username });
       }
 
       return null;
-    })
-  }
+    });
+  };
 
   const onPreviewClick = (e) => {
-    handleSubmit(e, true)
-  }
+    handleSubmit(e, true);
+  };
 
   return (
     <Row>
@@ -91,8 +92,8 @@ function JobForm(props) {
               getFieldDecorator('company', {
                 initialValue: get(currentJob, 'company', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Input
                   name="company"
@@ -108,8 +109,8 @@ function JobForm(props) {
               getFieldDecorator('location', {
                 initialValue: get(currentJob, 'location', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Input
                   name="location"
@@ -122,8 +123,8 @@ function JobForm(props) {
               getFieldDecorator('title', {
                 initialValue: get(currentJob, 'title', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Input
                   name="title"
@@ -136,8 +137,8 @@ function JobForm(props) {
               getFieldDecorator('offer', {
                 initialValue: get(currentJob, 'offer', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Input
                   name="offer"
@@ -151,8 +152,8 @@ function JobForm(props) {
               getFieldDecorator('type', {
                 initialValue: get(currentJob, 'type', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Select style={{ width: '100%' }}>
                   <Option value="full_time">Full Time</Option>
@@ -169,8 +170,8 @@ function JobForm(props) {
               getFieldDecorator('place', {
                 initialValue: get(currentJob, 'place', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Select style={{ width: '100%' }}>
                   <Option value="onsite">On site</Option>
@@ -185,8 +186,8 @@ function JobForm(props) {
               getFieldDecorator('category', {
                 initialValue: get(currentJob, 'category', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <Select>
                   <Option value="tech">Tech</Option>
@@ -208,8 +209,8 @@ function JobForm(props) {
               getFieldDecorator('description', {
                 initialValue: get(currentJob, 'description', ''),
                 rules: [
-                  { required: true, message: 'Required' }
-                ]
+                  { required: true, message: 'Required' },
+                ],
               })(
                 <TextArea
                   name="description"
@@ -221,7 +222,7 @@ function JobForm(props) {
           <Form.Item
             style={{
               display: 'flex',
-              justifyContent: 'flex-end'
+              justifyContent: 'flex-end',
             }}
           >
             {
@@ -259,15 +260,15 @@ function JobForm(props) {
         }
       `}</style>
     </Row>
-  )
+  );
 }
 
 JobForm.defaultProps = {
   editMode: false,
-}
+};
 
 const wrappedJobForm = Form.create({
-  name: 'JobForm'
-})(JobForm)
+  name: 'JobForm',
+})(JobForm);
 
-export default wrappedJobForm
+export default wrappedJobForm;

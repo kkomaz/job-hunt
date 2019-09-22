@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import JobForm from '../../../components/jobForm'
-import JobCard from '../../../components/jobCard'
+import { useState } from 'react';
 import {
   Card,
   Button,
   Row,
-  Col,
-} from 'antd'
+  Col
+} from 'antd';
+import JobForm from '../../../components/jobForm';
+import JobCard from '../../../components/jobCard';
 
 export default function JobsNew() {
-  const [preview, setPreview] = useState(false)
-  const [jobParams, setJobParams] = useState({})
+  const [preview, setPreview] = useState(false);
+  const [jobParams, setJobParams] = useState({});
 
   const showPreview = () => {
-    setPreview(true)
-  }
+    setPreview(true);
+  };
 
   return (
     <div className="container mt-one">
@@ -57,5 +57,5 @@ export default function JobsNew() {
       `}
       </style>
     </div>
-  )
+  );
 }

@@ -1,28 +1,28 @@
-import { useEffect, useState } from 'react'
-import JobCardDetail from '../../../components/jobCardDetail'
+import { useEffect, useState } from 'react';
 import { getConfig } from 'radiks';
+import JobCardDetail from '../../../components/jobCardDetail';
 
 export default function About(props) {
-  const [userData, setUserData] = useState({})
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [userData, setUserData] = useState({});
+  const [isSignedIn, setIsSignedIn] = useState(false);
   
   const {
     job,
-  } = props
+  } = props;
 
   useEffect(() => {
     const { userSession } = getConfig();
 
     if (userSession) {
       try {
-        setUserData(userSession.loadUserData())
-        setIsSignedIn(userSession.isUserSignedIn())
+        setUserData(userSession.loadUserData());
+        setIsSignedIn(userSession.isUserSignedIn());
       } catch {
-        console.log('not logged in.')
+        console.log('not logged in.');
       }
     }
 
-  }, [])
+  }, []);
 
   return (
     <div className="container">
@@ -32,15 +32,15 @@ export default function About(props) {
         isSignedIn={isSignedIn}
       />
     </div>
-  )
+  );
 }
 
 About.getInitialProps = async(context) => {
-  const id = context.asPath.split('/')[2]
-  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs/${id}`)
-  const { job } = await result.json()
+  const id = context.asPath.split('/')[2];
+  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs/${id}`);
+  const { job } = await result.json();
 
   return {
     job,
-  }
-}
+  };
+};

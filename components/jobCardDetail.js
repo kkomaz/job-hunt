@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   Button,
   Card,
   Icon,
-  Modal,
-} from 'antd'
-import Router from 'next/router'
-import Job from '../model/job'
-import { convertDate } from '../utils'
-import JobForm from './jobForm'
+  Modal
+} from 'antd';
+import Router from 'next/router';
+import Job from '../model/job';
+import { convertDate } from '../utils';
+import JobForm from './jobForm';
 
 const key = {
   full_time: 'Full Time',
@@ -27,8 +27,8 @@ const key = {
   operation: 'Operations',
   customer_support: 'Customer Support',
   analyst: 'Analyst',
-  other: 'Other'
-}
+  other: 'Other',
+};
 
 export default function JobCard(props) {
   const {
@@ -44,35 +44,35 @@ export default function JobCard(props) {
     description,
     date,
     disableButtons,
-  } = props.params
+  } = props.params;
 
   const {
     className,
     isSignedIn,
     userData,
-  } = props
+  } = props;
 
-  const [visible, setVisible] = useState(false)
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const goToDirect = () => {
     if (offer.includes('http')) {
-      window.open(offer, '_blank')
+      window.open(offer, '_blank');
     } else {
-      window.open(`https://${offer}`, '_blank')
+      window.open(`https://${offer}`, '_blank');
     }
-  }
+  };
 
   const handleCancel = e => {
-    setVisible(false)
+    setVisible(false);
   };
 
   const deleteJobPost = async () => {
-    const searchedJob = await Job.findById(_id)
-    await searchedJob.destroy()
-    Router.push('/')
-  }
+    const searchedJob = await Job.findById(_id);
+    await searchedJob.destroy();
+    Router.push('/');
+  };
 
   return (
     <>
@@ -123,7 +123,7 @@ export default function JobCard(props) {
           <p
             className="mt-one mb-one"
             style={{
-              whiteSpace: 'pre-line'
+              whiteSpace: 'pre-line',
             }}
           >
             {description}
@@ -211,9 +211,9 @@ export default function JobCard(props) {
         />
       </Modal>
     </>
-  )
+  );
 }
 
 JobCard.defaultProps = {
   disableButtons: false,
-}
+};

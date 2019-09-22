@@ -1,39 +1,39 @@
-import { Component } from 'react'
+import { Component } from 'react';
 import {
   Button,
-  Modal,
-} from 'antd'
+  Modal
+} from 'antd';
 import { getConfig } from 'radiks';
-import Link from 'next/link'
+import Link from 'next/link';
 
 class Hero extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     const { userSession } = getConfig();
 
     this.state = {
-      isSignedIn: userSession.isUserSignedIn()
-    }
+      isSignedIn: userSession.isUserSignedIn(),
+    };
   }
 
   componentDidMount = async () => {
     const { userSession } = getConfig();
     
     if (userSession.isUserSignedIn()) {
-      const result = userSession.loadUserData()
-      return this.setState({ isSignedIn: true })
+      const result = userSession.loadUserData();
+      return this.setState({ isSignedIn: true });
     }
 
     if (userSession.isSignInPending()) {
       await userSession.handlePendingSignIn();
-      this.setState({ isSignedIn: true })
+      this.setState({ isSignedIn: true });
     }
   }
   
   handleSignIn = (e) => {
-    const { userSession } = getConfig()
-    userSession.redirectToSignIn()
+    const { userSession } = getConfig();
+    userSession.redirectToSignIn();
   }
 
   info = () => {
@@ -56,8 +56,8 @@ class Hero extends Component {
             </Button>
           </div>
         </div>
-      )
-    })
+      ),
+    });
   }
 
   render() {
@@ -70,7 +70,7 @@ class Hero extends Component {
           <div className="post-job-container">
             {
               this.state.isSignedIn ?
-              <Link href="/jobs/new" as={'/jobs/new'}>
+              <Link href="/jobs/new" as="/jobs/new">
                 <Button
                   className="self-centered"
                   size="large"
@@ -114,8 +114,8 @@ class Hero extends Component {
           }
         `}</style>
       </section>
-    )
+    );
   }
 }
 
-export default Hero
+export default Hero;

@@ -1,12 +1,21 @@
 {
   "name": "create-next-example-app",
   "scripts": {
-    "dev": "node ssr-server.js",
+    "babel-node": "babel-node --config-file ./babel-server.config.js",
     "build": "next build",
-    "start": "NODE_ENV=production node ssr-server.js"
+    "dev": "NODE_ENV=development yarn babel-node server",
+    "heroku-postbuild": "next build",
+    "lint": "eslint ./components/**/*.js ./pages/**/*.js --fix",
+    "prettier": "prettier --config .prettierrc ./common/**/*.js ./components/**/*.js ./pages/**/*.js",
+    "start": "NODE_ENV=production yarn babel-node server"
   },
   "dependencies": {
     "@awaitjs/express": "^0.3.0",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
     "@svgr/webpack": "^4.3.2",
     "@zeit/next-css": "^1.0.2-canary.2",
     "@zeit/next-less": "^1.0.1",
@@ -30,5 +39,20 @@
     "universal-cookie-express": "^4.0.1",
     "unstated-next": "^1.1.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-import-resolver-webpack": "^0.11.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-scope": "^4.0.0",
+    "prettier": "^1.16.4"
   }
 }

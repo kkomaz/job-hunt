@@ -1,11 +1,11 @@
-import React from 'react'
-import App from 'next/app'
+import React from 'react';
+import App from 'next/app';
 import { UserSession, AppConfig } from 'blockstack';
-import Nav from '../components/nav'
-import Head from '../components/head'
-import Hero from '../components/hero'
 import { configure } from 'radiks';
-import MainContainer from '../unstated/MainContainer'
+import Nav from '../components/nav';
+import Head from '../components/head';
+import Hero from '../components/hero';
+import MainContainer from '../unstated/MainContainer';
 
 const makeUserSession = () => {
   const appConfig = new AppConfig(['store_write', 'publish_data'], process.env.RADIKS_API_SERVER);
@@ -30,10 +30,10 @@ class MyApp extends App {
 
     configure({
       apiServer: process.env.RADIKS_API_SERVER,
-      userSession
+      userSession,
     });
   
-    return { ...appProps }
+    return { ...appProps };
   }
 
   componentWillMount() {
@@ -41,16 +41,16 @@ class MyApp extends App {
 
     configure({
       apiServer: process.env.RADIKS_API_SERVER,
-      userSession
+      userSession,
     });
 
     this.setState({
-      userSession
-    })
+      userSession,
+    });
   }
   
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps } = this.props;
 
     return (
       <MainContainer>
@@ -59,8 +59,8 @@ class MyApp extends App {
         <Hero />
         <Component {...pageProps} />
       </MainContainer>
-    )
+    );
   }
 }
 
-export default MyApp
+export default MyApp;

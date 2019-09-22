@@ -1,60 +1,60 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import {
   Button,
   Col,
-  Row,
-} from 'antd'
+  Row
+} from 'antd';
 import fetch from 'isomorphic-unfetch';
-import JobContainer from '../unstated/JobContainer'
-import JobCard from '../components/jobCard'
 import Router from 'next/router';
+import JobContainer from '../unstated/JobContainer';
+import JobCard from '../components/jobCard';
 
 function Home(props) {
-  const jobContainer = JobContainer.useContainer()
-  const { query, jobs, metadata } = props
+  const jobContainer = JobContainer.useContainer();
+  const { query, jobs, metadata } = props;
 
   const setJobContainer = (page = 0) => {
-    jobContainer.setJobs({ ...jobContainer.jobs, [page]: jobs })
-  }
+    jobContainer.setJobs({ ...jobContainer.jobs, [page]: jobs });
+  };
 
   const onNextPage = () => {
     if (metadata.page === 0) {
       Router.push({
         pathname: '/',
-        query: { page: 2 }
-      })
+        query: { page: 2 },
+      });
     } else {
       Router.push({
         pathname: '/',
-        query: { page: metadata.page + 1 }
-      })
+        query: { page: metadata.page + 1 },
+      });
     }
-  }
+  };
 
   const onPreviousClick = () => {
     if (metadata.page === 2) {
-      Router.push('/')
+      Router.push('/');
     } else {
       Router.push({
         pathname: '/',
-        query: { page: metadata.page - 1 }
-      })
+        query: { page: metadata.page - 1 },
+      });
     }
-  }
+  };
 
   useEffect(() => {
     if (!query.page || parseInt(query.page) === 1) {
-      setJobContainer()
+      setJobContainer();
     }
 
     if (parseInt(query.page) > 1) {
-      setJobContainer(query.page - 1)
+      setJobContainer(query.page - 1);
     }
-  }, [query.page])
+  }, [query.page]);
 
 
   if (!jobContainer.jobs[query.page - 1 || 0]) {
-    return <div>Loading...</div>  
+    return <div>Loading...</div>;  
   }  
 
   return (
@@ -73,14 +73,14 @@ function Home(props) {
             }
             {
               jobContainer.jobs[query.page - 1 || 0].map((job) => {
-                const params = job
+                const params = job;
                 return (
                   <JobCard
                     className="mb-one"
                     params={{...params, date: job.createdAt}}
                     shortened
                   />
-                )
+                );
               })
             }
             <div className="home-buttons">
@@ -186,19 +186,19 @@ function Home(props) {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
 Home.getInitialProps = async ({ query }) => {
-  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?page=${query.page}`)
-  const { jobs } = await result.json()
+  const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?page=${query.page}`);
+  const { jobs } = await result.json();
   const page = !!parseInt(query.page) ? parseInt(query.page) : 1;
 
   return {
     query: { ...query, page },
     jobs: jobs.data,
     metadata: jobs.metadata,
-  }
-}
+  };
+};
 
-export default Home
+export default Home;

@@ -1,74 +1,74 @@
-import React from 'react'
-import Link from 'next/link'
-import { AppConfig, UserSession } from 'blockstack'
-import Router from 'next/router'
+import React from 'react';
+import Link from 'next/link';
+import { AppConfig, UserSession } from 'blockstack';
+import Router from 'next/router';
 import { getConfig, User } from 'radiks';
 import {
   Button,
   Layout,
-  Menu,
-} from 'antd'
+  Menu
+} from 'antd';
 
 const {
   Header,
-} = Layout
+} = Layout;
 
 class Nav extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     const { userSession } = getConfig();
 
     this.state = {
       isSignedIn: userSession.isUserSignedIn(),
       isSigningIn: false,
-    }
+    };
   }
 
   componentDidMount = () => {
     const { userSession } = getConfig();
     
     if (userSession.isUserSignedIn()) {
-      const result = userSession.loadUserData()
-      return this.setState({ isSignedIn: true })
+      const result = userSession.loadUserData();
+      return this.setState({ isSignedIn: true });
     }
 
     if (userSession.isSignInPending()) {
       this.setState({ isSigningIn: true }, async () => {
-        await userSession.handlePendingSignIn()
-        await User.createWithCurrentUser()
+        await userSession.handlePendingSignIn();
+        await User.createWithCurrentUser();
         this.setState({
           isSignedIn: true,
           isSigningIn: false,
-        })
-      })
+        });
+      });
     }
   }
   
 
   handleSignIn = (e) => {
     const { userSession } = getConfig();
-    userSession.redirectToSignIn()
+    userSession.redirectToSignIn();
   }
 
   handleSignOut = () => {
     const { userSession } = getConfig();
 
-    userSession.signUserOut()
-    window.location = '/'
+    userSession.signUserOut();
+    window.location = '/';
   }
 
   onMenuClick = (value) => {
     if (value.key === 'home') {
-      Router.push('/')
+      Router.push('/');
     }
 
     if (value.key === 'sign-out') {
-      this.handleSignOut()
+      this.handleSignOut();
     }
 
     if (value.key === 'sign-in') {
-      this.handleSignIn()
+      this.handleSignIn();
     }
   }
 
@@ -76,7 +76,7 @@ class Nav extends React.Component {
     const {
       isSignedIn,
       isSigningIn,
-    } = this.state
+    } = this.state;
 
     return (
       <Header
@@ -303,8 +303,8 @@ class Nav extends React.Component {
 
         `}</style>
       </Header>
-    )
+    );
   }
 }
 
-export default Nav
+export default Nav;

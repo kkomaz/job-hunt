@@ -1,10 +1,10 @@
 import {
   Button,
   Card,
-  Icon,
-} from 'antd'
-import Link from 'next/link'
-import { convertDate } from '../utils'
+  Icon
+} from 'antd';
+import Link from 'next/link';
+import { convertDate } from '../utils';
 
 const key = {
   full_time: 'Full Time',
@@ -23,8 +23,8 @@ const key = {
   operation: 'Operations',
   customer_support: 'Customer Support',
   analyst: 'Analyst',
-  other: 'Other'
-}
+  other: 'Other',
+};
 
 export default function JobCard(props) {
   const {
@@ -40,28 +40,28 @@ export default function JobCard(props) {
     description,
     date,
     disableButtons,
-  } = props.params
+  } = props.params;
 
   const {
     className,
     shortened,
-  } = props
+  } = props;
 
   const goToDirect = () => {
     if (offer.includes('http')) {
-      window.open(offer, '_blank')
+      window.open(offer, '_blank');
     } else {
-      window.open(`https://${offer}`, '_blank')
+      window.open(`https://${offer}`, '_blank');
     }
-  }
+  };
 
   const filterJobDescription = (desc) => {
     if (shortened) {
-      return (`${desc.substring(0, 250)}...`)
+      return (`${desc.substring(0, 250)}...`);
     }
 
-    return desc
-  }
+    return desc;
+  };
 
 
   return (
@@ -136,10 +136,10 @@ export default function JobCard(props) {
         }
       `}</style>
     </Card>
-  )
+  );
 }
 
 JobCard.defaultProps = {
   disableButtons: false,
   shortened: false,
-}
+};
