@@ -150,6 +150,10 @@ class Nav extends React.Component {
             color: white;
           }
 
+          .shadow {
+            color: #6E7783;
+          }
+
           .self-centered {
             text-align: center;
           }

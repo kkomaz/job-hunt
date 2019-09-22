@@ -1,13 +1,26 @@
 const aggregateJobs = async (radiksData, query) => {
   const size = 5;
-  const match = {
+  let match = {
     $match: {
       radiksType: 'Job',
-    }
+    },
   }
 
+  console.log(query);
+
+  if (query.creator) {
+    match = {
+      $match: {
+        radiksType: 'Job',
+        creator: query.creator,
+      },
+    } 
+  }
+
+  console.log(match);
+
   const sort = {
-    $sort: { createdAt: query.sort || - 1 }
+    $sort: { createdAt: query.sort || - 1 },
   }
 
   const parsedLimit = parseInt(query.limit) || size
@@ -20,6 +33,7 @@ const aggregateJobs = async (radiksData, query) => {
       data: [ { $skip: (parsedLimit * (currentPage - 1)) }, { $limit: parsedLimit } ]
     }
   }
+  
 
   const pipeline = [match, sort, facet]
   const jobs = await radiksData.aggregate(pipeline).toArray()

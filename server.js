@@ -16,6 +16,8 @@ const { decorateApp } = require('@awaitjs/express');
 const { COLLECTION } = require('radiks-server/app/lib/constants');
 const aggregateJobs = require('./aggregators/aggregateJobs');
 const aggregateJob = require('./aggregators/aggregateJob');
+const aggregateUser = require('./aggregators/aggregateUser');
+
 const port = process.env.PORT || 3000;
 const keys = require('./config/keys');
 
@@ -46,6 +48,11 @@ app.prepare()
       app.render(req, res, actualPage)
     })
 
+    server.get('/users/:_id', (req, res) => {
+      const actualPage = '/user/_id'
+      app.render(req, res, actualPage)
+    })
+
     server.get('/manifest.json', (req, res) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers', '*');
@@ -53,9 +60,14 @@ app.prepare()
     });
 
     server.get('/api/jobs', async(req, res) => {
-      let jobs = await aggregateJobs(radiksData, req.query)
+      const jobs = await aggregateJobs(radiksData, req.query)
       res.json({ jobs })
     })
+
+    server.get('/api/users/:_id', async(req, res) => {
+      const user = await aggregateUser(radiksData, req)
+      res.json({ user })
+    });
 
     server.get('/api/jobs/:_id', async(req, res) => {
       const job = await aggregateJob(radiksData, req);

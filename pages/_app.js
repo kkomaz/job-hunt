@@ -54,7 +54,7 @@ class MyApp extends App {
 
     return (
       <MainContainer>
-        <Head title="Home" />
+        <Head title="Jobs In Crypto" />
         <Nav />
         <Hero />
         <Component {...pageProps} />
