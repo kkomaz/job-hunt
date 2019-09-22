@@ -78,8 +78,6 @@ class Nav extends React.Component {
       isSigningIn,
     } = this.state
 
-    console.log(isSigningIn);
-
     return (
       <Header
         style={{

@@ -55,10 +55,7 @@ function Home(props) {
 
   if (!jobContainer.jobs[query.page - 1 || 0]) {
     return <div>Loading...</div>  
-  }
-
-  console.log(jobs);
-  
+  }  
 
   return (
     <div>
