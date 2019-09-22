@@ -20,11 +20,12 @@ class Nav extends React.Component {
     const { userSession } = getConfig();
 
     this.state = {
-      isSignedIn: userSession.isUserSignedIn()
+      isSignedIn: userSession.isUserSignedIn(),
+      isSigningIn: false,
     }
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { userSession } = getConfig();
     
     if (userSession.isUserSignedIn()) {
@@ -33,9 +34,14 @@ class Nav extends React.Component {
     }
 
     if (userSession.isSignInPending()) {
-      await userSession.handlePendingSignIn();
-      await User.createWithCurrentUser();
-      this.setState({ isSignedIn: true })
+      this.setState({ isSigningIn: true }, async () => {
+        await userSession.handlePendingSignIn()
+        await User.createWithCurrentUser()
+        this.setState({
+          isSignedIn: true,
+          isSigningIn: false,
+        })
+      })
     }
   }
   
@@ -67,7 +73,12 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { isSignedIn } = this.state
+    const {
+      isSignedIn,
+      isSigningIn,
+    } = this.state
+
+    console.log(isSigningIn);
 
     return (
       <Header
@@ -93,6 +104,10 @@ class Nav extends React.Component {
               key="sign-out"
             >
               Sign Out
+            </Menu.Item> :
+            isSigningIn ?
+            <Menu.Item>
+              Signing in...
             </Menu.Item> :
             <Menu.Item
               key="sign-in"
