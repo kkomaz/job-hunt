@@ -110,7 +110,12 @@ export default function JobCard(props) {
             <span>{location}</span>
           </div>
         </div>
-        <p className="mt-one mb-one">
+        <p
+          className="mt-one mb-one"
+          style={{
+            whiteSpace: 'pre-wrap',
+          }}
+        >
           {filterJobDescription(description)}
         </p>
 

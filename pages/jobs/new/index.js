@@ -31,11 +31,6 @@ export default function JobsNew() {
           {
             preview &&
             <Col xs={24} md={12}>
-              <div className="confirm-container mb-one">
-                <Button type="primary">
-                  Confirm & Submit Job Post
-                </Button>
-              </div>
               <JobCard
                 params={jobParams}
               />
@@ -44,12 +39,6 @@ export default function JobsNew() {
         </div>
       </Row>
       <style jsx>{`
-        .confirm-container {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
         .job-container {
           display: flex;
           justify-content: center;

@@ -25,6 +25,7 @@ function JobForm(props) {
   } = props;
   const { userSession } = getConfig();
   const [submitting, setSubmitting] = useState(false);
+  const [preview, setPreview] = useState(false)
 
   useEffect(() => {
     if (!userSession.isUserSignedIn()) {
@@ -57,27 +58,32 @@ function JobForm(props) {
     }
   };
 
-  const handleSubmit = (e, preview) => {
+  const handleSubmit = (e, previewState) => {
     e.preventDefault();
     setSubmitting(true);
 
     return validateFields((err, values) => {
-      if (!err && preview) {
+      if (!err && previewState) {
         const userData = userSession.loadUserData();
         props.setJobParams({ ...values, date: Date.now(), creator: userData.username });
+        setSubmitting(false)
         return props.showPreview();
       }
 
       if (!err) {
         const userData = userSession.loadUserData();
+        setSubmitting(false)
         return editMode ? editJob(values) : createJob({ ...values, creator: userData.username });
       }
+
+      setSubmitting(false)
 
       return null;
     });
   };
 
   const onPreviewClick = (e) => {
+    setPreview(true)
     handleSubmit(e, true);
   };
 
@@ -85,6 +91,19 @@ function JobForm(props) {
     <Row>
       <Col xs={24}>
         <Form onSubmit={handleSubmit}>
+          {
+            preview &&
+            <div className="confirm-submit-container">
+              <Button
+                disabled={submitting}
+                type="primary"
+                htmlType="submit"
+                icon="cloud-server"
+              >
+                Confirm & Submit Job Post
+              </Button>
+            </div>
+          }
           <Form.Item
             label="Company Name"
             style={{ marginBottom: '10px' }}
@@ -256,6 +275,11 @@ function JobForm(props) {
         </Form>
       </Col>
       <style jsx>{`
+        .confirm-submit-container {
+          display: flex;
+          justify-content: flex-end;
+        }
+
         .button-container {
           display: flex;
         }

@@ -69,6 +69,10 @@ export default function JobCard(props) {
     setVisible(false);
   };
 
+  const handleCancelDelete = e => {
+    setShowDeleteConfirm(false)
+  }
+
   const deleteJobPost = async () => {
     const searchedJob = await Job.findById(_id);
     await searchedJob.destroy();
@@ -164,27 +168,6 @@ export default function JobCard(props) {
               </Button>
             }
           </div>
-          {
-            showDeleteConfirm && <div className="self-centered mt-two">
-              <p>
-                Are you sure you want to delete this job post?
-              </p>
-              <Button
-                disabled={submitting}
-                type="link"
-                onClick={deleteJobPost}
-              >
-                Yes
-              </Button>
-              <Button
-                disabled={submitting}
-                onClick={() => setShowDeleteConfirm(false)}
-                type="link"
-              >
-                No
-              </Button>
-            </div>
-          }
         </div>
         <style jsx>{`
           .basic-details {
@@ -200,7 +183,7 @@ export default function JobCard(props) {
         `}</style>
       </Card>
       <Modal
-        title="Basic Modal"
+        title="Edit Job"
         visible={visible}
         footer={null}
         onCancel={handleCancel}
@@ -211,6 +194,33 @@ export default function JobCard(props) {
           onCancel={handleCancel}
           editMode
         />
+      </Modal>
+      <Modal
+        title="Delete Job"
+        visible={showDeleteConfirm}
+        footer={null}
+        onCancel={handleCancelDelete}
+        centered
+      >
+        <div className="self-centered">
+          <p>
+            Are you sure you want to delete this job post?
+          </p>
+          <Button
+            disabled={submitting}
+            type="link"
+            onClick={deleteJobPost}
+          >
+            Yes
+          </Button>
+          <Button
+            disabled={submitting}
+            onClick={handleCancelDelete}
+            type="link"
+          >
+            No
+          </Button>
+        </div>
       </Modal>
     </>
   );
