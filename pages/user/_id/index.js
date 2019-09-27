@@ -7,6 +7,7 @@ import _ from 'lodash'
 import ProfilePicture from '../../../components/user/ProfilePicture'
 import Icon from '../../../components/Icon'
 import JobCard from '../../../components/jobCard';
+import Resume from '../../../components/resume'
 
 const keys = {
   twitter: {
@@ -62,6 +63,10 @@ export default function UserIdPage(props) {
               })
             }
           </div>
+
+          <Divider />
+
+          <Resume user={user} />
         </Col>
         <Col xs={14}>
           <h2>{_.get(user, 'profile.name', '')}</h2>
