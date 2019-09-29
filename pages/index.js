@@ -103,7 +103,7 @@ function Home(props) {
             <div className="mt-one" style={{ padding: '0 20px' }}>
               <h3>Who are we?</h3>
               <p className="mb-one large">
-                JobStack is a open source platform to help developers find job in the crypto & blockchain space.
+                Jobs In Crypto is a open source platform to help developers find job in the crypto & blockchain space.
               </p>
               <p className="mb-one large">
                 Posting a job is completely <span className="green bold">FREE</span>.  All it requires is for you to sign up and create a Blockstack ID
