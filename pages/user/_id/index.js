@@ -1,12 +1,15 @@
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {
   Row,
   Col,
   Divider
 } from 'antd'
-import _ from 'lodash'
+import { lookupProfile } from 'blockstack'
 import ProfilePicture from '../../../components/user/ProfilePicture'
 import Icon from '../../../components/Icon'
-import JobCard from '../../../components/jobCard';
+import JobCard from '../../../components/jobCard'
 import Resume from '../../../components/resume'
 
 const keys = {
@@ -29,7 +32,21 @@ const keys = {
 }
 
 export default function UserIdPage(props) {
-  const { user, jobs } = props
+  const { user, jobs, host } = props
+  const [userGaia, setUserGaia] = useState('')
+
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      const result  = await lookupProfile(user.username)
+      const gaiaHubUrl = _.find(result.apps, (k, v) => {
+        const value = v.replace(/(^\w+:|^)\/\//, '');
+        return value === host
+      })
+      setUserGaia(gaiaHubUrl)
+    }
+
+    fetchProfileInfo();
+  });
 
   const userProofs = _.get(user, 'profile.account', [])
 
@@ -37,7 +54,10 @@ export default function UserIdPage(props) {
     <div className="container">
       <Row gutter={16}>
         <Col xs={10}>
-          <ProfilePicture user={user} />
+          <ProfilePicture
+            user={user}
+            userGaia={userGaia}
+          />
 
           <Divider /  >
 
@@ -66,7 +86,13 @@ export default function UserIdPage(props) {
 
           <Divider />
 
-          <Resume user={user} />
+          {
+            userGaia &&
+            <Resume
+              user={user}
+              userGaia={userGaia}
+            />
+          }
         </Col>
         <Col xs={14}>
           <h2>{_.get(user, 'profile.name', '')}</h2>
@@ -106,8 +132,15 @@ export default function UserIdPage(props) {
   )
 }
 
+UserIdPage.propTypes = {
+  user: PropTypes.object.isRequired,
+  jobs: PropTypes.array.isRequired,
+  host: PropTypes.string.isRequired,
+}
+
 UserIdPage.getInitialProps = async(context) => {
-  const id = context.asPath.split('/')[2];
+  const splitPath = context.asPath.split('/')
+  const id = splitPath[2];
   const result = await fetch(`${process.env.RADIKS_API_SERVER}/api/users/${id}`);  
   const { user } = await result.json();
   const jobsResult = await fetch(`${process.env.RADIKS_API_SERVER}/api/jobs?creator=${id}&limit=0`);
@@ -116,5 +149,6 @@ UserIdPage.getInitialProps = async(context) => {
   return {
     user,
     jobs: jobs.data,
+    host: context.req.headers.host,
   }
 }

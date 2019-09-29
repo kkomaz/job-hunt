@@ -8,7 +8,7 @@ import { getConfig } from 'radiks'
 export default function ProfilePicture({ user }) {
   const { userSession } = getConfig();
   const [userData, setUserData] = useState({})
-  
+
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
       setUserData(userSession.loadUserData())
