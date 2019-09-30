@@ -45,6 +45,7 @@ export default function JobCard(props) {
   const {
     className,
     shortened,
+    empty,
   } = props;
 
   const goToDirect = () => {
@@ -56,6 +57,10 @@ export default function JobCard(props) {
   };
 
   const filterJobDescription = (desc) => {
+    if (empty) {
+      return '';
+    }
+
     if (shortened) {
       return (`${desc.substring(0, 250)}...`);
     }
@@ -148,4 +153,5 @@ export default function JobCard(props) {
 JobCard.defaultProps = {
   disableButtons: false,
   shortened: false,
+  empty: false,
 };
