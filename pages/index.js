@@ -60,6 +60,22 @@ function Home(props) {
   return (
     <div>
       <div className="container">
+        <h3 className="danger self-centered">
+          Jobs In Crypto is an alpha release and currently in major development.
+        </h3>
+
+        <h3 className="self-centered">
+          Roadmap is publicly available&nbsp;
+            <a
+              style={{ fontSize: '18px' }}
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.notion.so/88412d58f4304639a78a92e931a7f654?v=e45601144db3488192b98534c01b0f17"
+            >
+              here
+            </a>
+        </h3>
+        
         <Row>
           <Col md={18} sm={24}>
             {

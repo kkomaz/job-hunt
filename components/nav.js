@@ -233,6 +233,10 @@ class Nav extends React.Component {
             color: #5CAB7D;
           }
 
+          .danger {
+            color: #D81159;
+          }
+
           .bold {
             font-weight: 800;
           }

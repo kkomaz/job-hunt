@@ -21,7 +21,6 @@ class Hero extends Component {
     const { userSession } = getConfig();
     
     if (userSession.isUserSignedIn()) {
-      const result = userSession.loadUserData();
       return this.setState({ isSignedIn: true });
     }
 
@@ -61,6 +60,8 @@ class Hero extends Component {
   }
 
   render() {
+    const { isSignedIn } = this.state
+
     return (
       <section className="hero main is-info mb-one">
         <div className="hero-body">
@@ -69,24 +70,28 @@ class Hero extends Component {
           </h1>
           <div className="post-job-container">
             {
-              this.state.isSignedIn ?
-              <Link href="/jobs/new" as="/jobs/new">
+              isSignedIn ?
+              <>
+                <Link href="/jobs/new" as="/jobs/new">
+                  <Button
+                    className="self-centered"
+                    size="large"
+                    type="primary"
+                  >
+                    Post a Job
+                  </Button>
+                </Link>
+              </> :
+              <>
                 <Button
+                  onClick={this.info}
                   className="self-centered"
                   size="large"
                   type="primary"
                 >
                   Post a Job
                 </Button>
-              </Link> :
-              <Button
-                onClick={this.info}
-                className="self-centered"
-                size="large"
-                type="primary"
-              >
-                Post a Job
-              </Button>
+              </>
             }
           </div>
         </div>
