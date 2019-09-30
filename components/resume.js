@@ -36,7 +36,7 @@ export default function Resume(props) {
     reader.readAsArrayBuffer(file);
 
     reader.onloadend = async () => {
-      const pdfFile = `data:application/pdf;base64,${Buffer(reader.result).toString("base64")}`
+      const pdfFile = `data:application;base64,${Buffer(reader.result).toString("base64")}`
       const options = { encrypt: false }
       const blobId = generateUUID()
       const params = {
@@ -84,7 +84,7 @@ export default function Resume(props) {
           )}
           multiple={false}
           beforeUpload={replaceFile}
-          accept=".pdf"
+          accept={[".pdf", ".txt", ".doc", ".docx"]}
           showUploadList={false}
         >
           <Button
