@@ -116,14 +116,20 @@ function Home(props) {
             </div>
           </Col>
           <Col md={6} sm={24}>
-            <div className="mt-one" style={{ padding: '0 20px' }}>
+            <div style={{ padding: '0 20px' }}>
               <h3>Who are we?</h3>
               <p className="mb-one large">
                 Jobs In Crypto is a open source platform to help developers find job in the crypto & blockchain space.
               </p>
+
+              <p className="mb-one large">
+                We value data ownership.  Leveraging decentralized technology, you as a user can save information like a Resume to your personal data locker storage without any dependency on a centralized server.
+              </p>
+
               <p className="mb-one large">
                 Posting a job is completely <span className="green bold">FREE</span>.  All it requires is for you to sign up and create a Blockstack ID
               </p>
+
               <p className="mb-one large">
                 With the emergence of blockchain technology and decentralized applications, finding talented individuals to solve these problems will play a vital role to mass adoption.
               </p>
