@@ -14,10 +14,11 @@ class Hero extends Component {
 
     this.state = {
       isSignedIn: userSession.isUserSignedIn(),
+      isSigningIn: false,
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { userSession } = getConfig();
     
     if (userSession.isUserSignedIn()) {
@@ -25,8 +26,13 @@ class Hero extends Component {
     }
 
     if (userSession.isSignInPending()) {
-      await userSession.handlePendingSignIn();
-      this.setState({ isSignedIn: true });
+      this.setState({ isSigningIn: true }, async () => {
+        await userSession.handlePendingSignIn();
+        this.setState({
+          isSignedIn: true,
+          isSigningIn: false,
+        });
+      });
     }
   }
   
@@ -60,7 +66,10 @@ class Hero extends Component {
   }
 
   render() {
-    const { isSignedIn } = this.state
+    const {
+      isSignedIn,
+      isSigningIn,
+    } = this.state
 
     return (
       <section className="hero main is-info mb-one">
@@ -88,8 +97,9 @@ class Hero extends Component {
                   className="self-centered"
                   size="large"
                   type="primary"
+                  disabled={isSigningIn}
                 >
-                  Post a Job
+                  {isSigningIn ? 'Signing In...' : 'Post a Job' }
                 </Button>
               </>
             }

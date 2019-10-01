@@ -1,10 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
-import { AppConfig, UserSession } from 'blockstack';
 import Router from 'next/router';
 import { getConfig, User } from 'radiks';
 import {
-  Button,
   Layout,
   Menu
 } from 'antd';
