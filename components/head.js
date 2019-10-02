@@ -1,10 +1,11 @@
 import React from 'react';
 import NextHead from 'next/head';
 import { string } from 'prop-types';
+import OGImg from '../assets/OG.png'
 
 const defaultDescription = '';
-const defaultOGURL = '';
-const defaultOGImage = '';
+const defaultOGURL = 'https://www.jobsincrypto.tech';
+const defaultOGImage = OGImg;
 
 const Head = props => (
   <NextHead>
