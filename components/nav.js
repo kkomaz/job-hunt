@@ -69,7 +69,7 @@ class Nav extends React.Component {
     }
 
     if (value.key === 'profile') {
-      Router.push(`/users/${username}`)
+      Router.push('/users/_id', `/users/${username}`)
     }
 
     if (value.key === 'sign-out') {

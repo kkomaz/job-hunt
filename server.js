@@ -49,7 +49,7 @@ app.prepare()
     })
 
     server.get('/users/:_id', (req, res) => {
-      const actualPage = '/user/_id'
+      const actualPage = '/users/_id'
       app.render(req, res, actualPage)
     })
 

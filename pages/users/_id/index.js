@@ -37,10 +37,18 @@ export default function UserIdPage(props) {
 
   useEffect(() => {
     const fetchProfileInfo = async () => {
+      let adjustedHost = host;
       const result  = await lookupProfile(user.username)
+
+      console.log(host);
+
+      if (host === null) {
+        adjustedHost = window.location.origin;
+      }
+
       const gaiaHubUrl = _.find(result.apps, (k, v) => {
         const value = v.replace(/(^\w+:|^)\/\//, '');
-        return value === host
+        return value === adjustedHost
       })
       setUserGaia(gaiaHubUrl)
     }
@@ -149,6 +157,6 @@ UserIdPage.getInitialProps = async(context) => {
   return {
     user,
     jobs: jobs.data,
-    host: context.req.headers.host,
+    host: _.get(context, 'req.headers.host', null),
   }
 }
